@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "start": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "test:unit": "vitest",
@@ -22,6 +22,8 @@
     "dayjs": "^1.11.11",
     "echarts": "^5.5.1",
     "express": "^4.19.2",
+    "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^3.2.1",
     "lodash-es": "^4.17.21",
     "mysql": "^2.18.1",
     "naive-ui": "^2.39.0",

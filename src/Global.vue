@@ -5,64 +5,79 @@
  -->
 <template>
   <div class="global-wrapper">
-    <n-config-provider :theme="theme">
-      <n-layout content-style="padding: 0px 10px">
-        <!-- <n-layout-header class="global-wrapper-header">
-          <n-space justify="end">
-            切换颜色主题
-            <n-switch v-model:value="themeActive">
-              <template #checked> 浅色 </template>
-              <template #unchecked> 深色 </template></n-switch
-            >
-            控制水印
-            <n-switch v-model:value="waterMarkActive">
-              <template #checked> 开启水印 </template>
-              <template #unchecked> 关闭水印 </template></n-switch
-            >
-          </n-space>
-        </n-layout-header> -->
-        <n-layout-content>
-          <router-view v-slot="{ Component }">
-            <component :is="Component" />
-          </router-view>
-        </n-layout-content>
-        <!-- <n-layout-footer align="center">footer footer</n-layout-footer> -->
-      </n-layout>
-      <!-- <WaterMark v-if="waterMarkActive" /> -->
+    <n-config-provider
+      :locale="zhCN"
+      :date-locale="dateZhCN"
+      :theme="appStore.isDark ? darkTheme : undefined"
+      :theme-overrides="appStore.naiveThemeOverrides"
+    >
+      <router-view v-if="Layout" v-slot="{ Component, route: curRoute }">
+        <component :is="Layout">
+          <KeepAlive :include="keepAliveNames">
+            <component :is="Component" v-if="!tabStore.reloading" :key="curRoute.fullPath" />
+          </KeepAlive>
+        </component>
+      </router-view>
     </n-config-provider>
   </div>
 </template>
 
-<script lang="ts">
-import { ref, defineComponent, computed } from 'vue'
-import { useDialog, useMessage, useNotification, useLoadingBar, darkTheme } from 'naive-ui'
-import HomeView from './views/HomeView.vue'
-import WaterMark from './components/WaterMark.vue'
+<script lang="ts" setup>
+import { computed, watchEffect } from 'vue'
+import {
+  useDialog,
+  useMessage,
+  useNotification,
+  useLoadingBar,
+  darkTheme,
+  dateZhCN,
+  zhCN
+} from 'naive-ui'
+import { useTabStore } from '@/store'
+import { useAppStore } from '@/store/modules/app'
+import { useRoute } from 'vue-router'
+import { markRaw, defineAsyncComponent } from 'vue'
 
-export default defineComponent({
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Global',
-  components: {
-    HomeView,
-    WaterMark
-  },
-  setup() {
-    const theme = computed(() => {
-      if (themeActive.value) return null
-      return darkTheme
-    })
+defineOptions({
+  name: 'GloBal'
+})
 
-    const themeActive = ref(true)
-    const waterMarkActive = ref(true)
+const appStore = useAppStore()
 
-    // message.d.ts 全局挂载配置
-    window.$message = useMessage()
-    window.$dialog = useDialog() as any
-    window.$notify = useNotification()
-    window.$loadingBar = useLoadingBar()
+const route = useRoute()
 
-    return { darkTheme, theme, themeActive, waterMarkActive }
-  }
+if (appStore.layout === 'default') appStore.setLayout('')
+
+const Layout = computed(() => {
+  if (!route.matched?.length) return null
+  return getLayout(route.meta?.layout || appStore.layout)
+})
+
+const tabStore = useTabStore()
+
+const keepAliveNames = computed(() => {
+  return tabStore.tabs.filter((item) => item.keepAlive).map((item) => item.name)
+})
+
+// message.d.ts 全局挂载配置
+window.$message = useMessage()
+window.$dialog = useDialog() as any
+window.$notify = useNotification()
+window.$loadingBar = useLoadingBar()
+
+const layouts = new Map()
+
+function getLayout(name) {
+  if (layouts.get(name)) return layouts.get(name)
+  const layout = markRaw(defineAsyncComponent(() => import(`@/layouts/${name}/${name}.vue`)))
+  layouts.set(name, layout)
+  // 当前布局组件
+  console.log('getlayout ', name, layouts, layout)
+  return layout
+}
+
+watchEffect(() => {
+  appStore.setThemeColor(appStore.primaryColor, appStore.isDark)
 })
 </script>
 

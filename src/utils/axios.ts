@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { baseNotify } from './func'
-import { useLoadingBar } from 'naive-ui'
+import { setupNaiveDiscreteApi } from '@/utils/func'
 
 // axios详细配置参考：
 // https://github.com/axios/axios#request-config
@@ -13,16 +13,13 @@ const service = axios.create({
   timeout: 60 * 1000
 })
 
-const loadingBar = useLoadingBar()
-console.log(useLoadingBar, loadingBar)
-
-console.log(import.meta.env)
+setupNaiveDiscreteApi()
 
 /** 拦截请求 */
 service.interceptors.request.use(
   (config: any) => {
     config.headers = config.headers || {}
-    // loadingBar.start()
+    window.$loadingBar.start()
     return config
   },
   (error) => {
@@ -31,7 +28,7 @@ service.interceptors.request.use(
       title: '请求出错',
       text: error.message
     })
-    // loadingBar.error()
+    window.$loadingBar.error()
     Promise.reject(error)
   }
 )
@@ -41,15 +38,15 @@ service.interceptors.response.use(
   (response) => {
     const res = response.data
     const { code, message } = res
+    window.$loadingBar.finish()
     if (code !== 200) {
       window.$message.error(message)
       return Promise.reject(new Error(message || 'Error'))
     }
-    // loadingBar.finish()
     return res
   },
   (error) => {
-    // loadingBar.error()
+    window.$loadingBar.error()
     return Promise.reject(error)
   }
 )

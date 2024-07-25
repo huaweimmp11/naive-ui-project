@@ -6,7 +6,9 @@
  */
 
 import { type NotificationType } from 'naive-ui'
-import type { VNodeChild } from 'vue'
+import * as NaiveUI from 'naive-ui'
+import { computed, type VNodeChild } from 'vue'
+import { useAppStore } from '@/store'
 
 /** 常用通知 notify */
 export function baseNotify(options?: {
@@ -89,4 +91,15 @@ export function avatarNotify(options?: {
     onLeave,
     duration: 2000
   })
+}
+
+export function setupNaiveDiscreteApi() {
+  const appStore = useAppStore()
+  const configProviderProps = computed(() => ({
+    theme: appStore.isDark ? NaiveUI.darkTheme : undefined,
+    themeOverrides: useAppStore().naiveThemeOverrides
+  }))
+  const { loadingBar } = NaiveUI.createDiscreteApi(['loadingBar'], { configProviderProps })
+
+  window.$loadingBar = loadingBar
 }

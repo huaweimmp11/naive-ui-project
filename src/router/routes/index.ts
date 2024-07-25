@@ -1,18 +1,21 @@
+import { RouteName } from './contants'
+
 export const basicRoutes = [
   {
     path: '/',
     redirect: '/login'
   },
   {
-    name: 'Login',
+    name: RouteName.Login,
     path: '/login',
     component: () => import('@/views/LoginPage.vue'),
     meta: {
-      title: '登录页'
+      title: '登录页',
+      layout: 'empty'
     }
   },
   {
-    name: 'HomeView',
+    name: RouteName.HomeView,
     path: '/home-view',
     component: () => import('@/views/HomeView.vue'),
     meta: {

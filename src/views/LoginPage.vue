@@ -1,3 +1,10 @@
+<!--
+   @description 登录页面
+   @author slh
+   @copyright NanJing Anshare Tech .Com
+   @createDate 2024年07月24日 14:49:12
+-->
+
 <template>
   <div class="wh-full flex-col bg-cover">
     <div
@@ -36,6 +43,14 @@
           </template>
         </n-input>
         <div class="mt-40 flex items-center">
+          <n-button
+            class="ml-32 h-40 flex-1 rounded-5 text-16"
+            type="info"
+            secondary
+            @click="handleLoginOnce"
+          >
+            一键
+          </n-button>
           <n-button class="ml-32 h-40 flex-1 rounded-5 text-16" type="primary" @click="handleLogin">
             登录
           </n-button>
@@ -51,6 +66,7 @@ import Vcode from 'vue3-puzzle-vcode'
 import { computed, onMounted, ref } from 'vue'
 import axios from '@/utils/axios'
 import { useRoute, useRouter } from 'vue-router'
+import { RouteName } from '@/router/routes/contants'
 
 defineOptions({
   name: 'LoginPage'
@@ -58,8 +74,10 @@ defineOptions({
 
 const title = ref(import.meta.env.VITE_TITLE)
 
+/** 路由信息 */
 const route = useRoute()
 
+/** 路由实例 */
 const router = useRouter()
 
 const isShow = ref(false)
@@ -80,6 +98,9 @@ const bannerSrc = computed(() => {
 function onSuccess() {
   isShow.value = false
   window.$message.success('登录成功')
+  router.push({
+    name: RouteName.HomeView
+  })
 }
 
 function onClose() {
@@ -88,6 +109,22 @@ function onClose() {
 }
 
 onMounted(() => {})
+
+async function handleLoginOnce() {
+  const { code } = await axios({
+    url: '/login',
+    method: 'post',
+    data: {
+      username: 'admin',
+      password: '123456'
+    }
+  })
+  if (code !== 200) {
+    window.$message.error('登录失败')
+    return false
+  }
+  onSuccess()
+}
 
 async function handleLogin() {
   const { username, password } = loginInfo.value

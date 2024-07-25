@@ -9,7 +9,8 @@
   <div
     class="message-card"
     :style="{
-      width: `${width}px`
+      width: `${width}px`,
+      'min-height': `${minHieght}px`
     }"
   >
     <n-card
@@ -20,7 +21,8 @@
       :bordered="props.bordered"
       :closable="props.closable"
       :style="{
-        width: `${props.width}px`
+        width: `${width}px`,
+        'min-height': `${minHieght}px`
       }"
       :segmented="{
         content: props.contentSegmented,
@@ -33,7 +35,7 @@
         <slot name="card-cover"></slot>
       </template>
       <!-- 卡片主体内容 -->
-      <slot name="card-body"></slot>
+      <slot></slot>
       <!-- 卡片副标题 -->
       <template #header-extra v-if="props.headerExtra">
         {{ props.headerExtra }}
@@ -69,6 +71,10 @@ const props = defineProps({
   width: {
     type: Number,
     default: 300
+  },
+  minHieght: {
+    type: Number,
+    default: 100
   },
   /** 卡片副标题 */
   headerExtra: {
