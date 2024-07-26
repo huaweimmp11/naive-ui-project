@@ -24,7 +24,7 @@
 
 <script setup>
 import SideBar from './sidebar/index.vue'
-import { useAppStore } from '@/store'
+import { useAppStore } from '@/store/modules/app'
 
 defineOptions({
   name: 'Simple'

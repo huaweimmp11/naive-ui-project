@@ -9,7 +9,7 @@
 
 <script setup>
 import { MenuCollapse, SideLogo, SideMenu, UserAvatar } from '@/layouts/components'
-import { useAppStore } from '@/store'
+import { useAppStore } from '@/store/modules/app'
 
 defineOptions({
   name: 'SimpleSidebar'

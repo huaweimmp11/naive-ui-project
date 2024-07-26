@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import NormalHeader from './normalheader/NormalHeader.vue'
 import NormalSidbar from './normalsidbar/NormalSidbar.vue'
-import { useAppStore } from '@/store'
+import { useAppStore } from '@/store/modules/app'
 
 defineOptions({
   name: 'NorMal'

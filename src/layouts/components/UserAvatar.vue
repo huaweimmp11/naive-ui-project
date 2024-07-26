@@ -1,11 +1,3 @@
-<!--------------------------------
- - @Author: Ronnie Zhang
- - @LastEditor: Ronnie Zhang
- - @LastEditTime: 2023/12/16 18:50:42
- - @Email: zclzone@outlook.com
- - Copyright © 2023 Ronnie Zhang(大脸怪) | https://isme.top
- --------------------------------->
-
 <template>
   <n-dropdown :options="options" @select="handleSelect">
     <div class="flex cursor-pointer items-center">
@@ -35,8 +27,7 @@ const options = reactive([
   {
     label: '个人资料',
     key: 'profile',
-    icon: () => h('i', { class: 'i-material-symbols:person-outline text-14' }),
-    show: computed(() => permissionStore.accessRoutes?.some((item) => item.path === '/profile'))
+    icon: () => h('i', { class: 'i-material-symbols:person-outline text-14' })
   },
   {
     label: '退出登录',

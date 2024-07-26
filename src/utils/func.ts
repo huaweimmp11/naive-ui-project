@@ -8,7 +8,8 @@
 import { type NotificationType } from 'naive-ui'
 import * as NaiveUI from 'naive-ui'
 import { computed, type VNodeChild } from 'vue'
-import { useAppStore } from '@/store'
+import { useAppStore } from '@/store/modules/app'
+import os from 'os'
 
 /** 常用通知 notify */
 export function baseNotify(options?: {
@@ -102,4 +103,47 @@ export function setupNaiveDiscreteApi() {
   const { loadingBar } = NaiveUI.createDiscreteApi(['loadingBar'], { configProviderProps })
 
   window.$loadingBar = loadingBar
+}
+
+/**
+ * 将vw转换为px
+ * 需要以实际的运行时视窗宽度来计算
+ * 所以使用document.documentElement.clientWidth为基准
+ */
+export function vwToPx(size: number) {
+  return (size * document.documentElement.clientWidth) / 100
+}
+
+/**
+ * 将js中接收单位为px的number值转化为
+ * 当前视窗下应有的尺寸number值
+ */
+export function pxToPx(size: number) {
+  return vwToPx(pxToVw(size))
+}
+
+export default function px2vw(size: number | string): string {
+  if (!size) {
+    return size as string
+  }
+  if (!['number', 'string'].includes(typeof size)) {
+    return size as string
+  }
+  const temp: number = Number(size)
+  if (!Number.isNaN(temp)) {
+    return `${pxToVw(temp)}vw`
+  }
+  if (!(size as string).endsWith('px')) {
+    return size as string
+  }
+  return `${pxToVw(parseFloat(size as string))}vw`
+}
+
+export function pxToVw(size: number) {
+  return (size / getViewportWidth()) * 100
+}
+
+/** 获取postcss视窗宽度 */
+export function getViewportWidth() {
+  return document.documentElement.clientWidth
 }

@@ -29,7 +29,7 @@
 <script setup lang="ts">
 import SideBar from './sidebar/fullsidebar.vue'
 import AppHeader from './header/fullheader.vue'
-import { useAppStore } from '@/store'
+import { useAppStore } from '@/store/modules/app'
 import { AppTab } from '@/layouts/components'
 
 defineOptions({

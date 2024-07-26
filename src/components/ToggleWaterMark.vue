@@ -4,11 +4,13 @@
    @createDate 2023年12月15日 15:22:43
    @document https://www.naiveui.com/zh-CN/light/components/watermark
  -->
+
 <template>
   <div class="water-mark-wrapper">
+    <n-switch v-model:value="active" />
     <n-watermark
-      v-if="show"
-      content="大家艰苦一下，一切都会有的"
+      v-if="active"
+      :content="content"
       cross
       fullscreen
       :font-size="12"
@@ -25,7 +27,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const show = ref<boolean>(true)
+defineOptions({
+  name: 'ToggleWaterMark'
+})
+
+const active = ref<boolean>(false)
+
+const content = ref<string>(import.meta.env.VITE_TITLE)
 </script>
 
 <style lang="scss" scoped></style>

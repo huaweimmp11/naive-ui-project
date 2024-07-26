@@ -33,6 +33,10 @@ import { useTabStore } from '@/store/modules/tab'
 import { useRouter } from 'vue-router'
 import { reactive, nextTick } from 'vue'
 
+defineOptions({
+  name: 'AppTab'
+})
+
 const router = useRouter()
 
 const tabStore = useTabStore()

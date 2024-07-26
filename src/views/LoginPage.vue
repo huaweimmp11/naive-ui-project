@@ -67,6 +67,7 @@ import { computed, onMounted, ref } from 'vue'
 import axios from '@/utils/axios'
 import { useRoute, useRouter } from 'vue-router'
 import { RouteName } from '@/router/routes/contants'
+import { getLoginData } from '@/api/retention'
 
 defineOptions({
   name: 'LoginPage'
@@ -111,14 +112,7 @@ function onClose() {
 onMounted(() => {})
 
 async function handleLoginOnce() {
-  const { code } = await axios({
-    url: '/login',
-    method: 'post',
-    data: {
-      username: 'admin',
-      password: '123456'
-    }
-  })
+  const { code } = await getLoginData({ username: 'admin', password: '123456' })
   if (code !== 200) {
     window.$message.error('登录失败')
     return false
@@ -129,14 +123,7 @@ async function handleLoginOnce() {
 async function handleLogin() {
   const { username, password } = loginInfo.value
   if (!username || !password) return window.$message.warning('请输入用户名和密码')
-  const { code } = await axios({
-    url: '/login',
-    method: 'post',
-    data: {
-      username,
-      password
-    }
-  })
+  const { code } = await getLoginData({ username, password })
   if (code !== 200) {
     window.$message.error('登录失败')
     return false

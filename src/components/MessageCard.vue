@@ -7,22 +7,24 @@
 
 <template>
   <div
-    class="message-card"
+    class="message-card auto-bg"
     :style="{
-      width: `${width}px`,
-      'min-height': `${minHieght}px`
+      width: `100%`,
+      height: `${props.height}px`
     }"
   >
     <n-card
       ref="nCardRef"
-      :title="props.title"
       :size="props.size"
       :hoverable="props.hoverable"
       :bordered="props.bordered"
       :closable="props.closable"
       :style="{
-        width: `${width}px`,
-        'min-height': `${minHieght}px`
+        width: `100%`,
+        height: `100%`,
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'auto'
       }"
       :segmented="{
         content: props.contentSegmented,
@@ -30,15 +32,20 @@
       }"
       @close="props.handleClose"
     >
+      <template #header>
+        <n-skeleton v-if="props.loading" text width="60%" />
+        <template v-else>{{ props.title }}</template>
+      </template>
       <!-- 可以放置卡片封面 -->
       <template #cover>
         <slot name="card-cover"></slot>
       </template>
       <!-- 卡片主体内容 -->
-      <slot></slot>
+      <n-skeleton v-if="props.loading" text width="100%" />
+      <slot v-else></slot>
       <!-- 卡片副标题 -->
-      <template #header-extra v-if="props.headerExtra">
-        {{ props.headerExtra }}
+      <template #header-extra>
+        <slot name="header-extra"></slot>
       </template>
       <template #footer> <slot name="card-footer"></slot> </template>
       <!-- 卡片底部分割区域 -->
@@ -58,6 +65,10 @@ const props = defineProps({
     type: String,
     default: '标题'
   },
+  loading: {
+    type: Boolean,
+    default: false
+  },
   /** 卡片有 small、medium、large、huge 尺寸 */
   size: {
     type: String,
@@ -72,14 +83,9 @@ const props = defineProps({
     type: Number,
     default: 300
   },
-  minHieght: {
+  height: {
     type: Number,
-    default: 100
-  },
-  /** 卡片副标题 */
-  headerExtra: {
-    type: String,
-    default: ''
+    default: 240
   },
   /** 卡片边框 */
   bordered: {
@@ -119,4 +125,10 @@ const props = defineProps({
 const nCardRef = ref(null)
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.message-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
