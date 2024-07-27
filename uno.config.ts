@@ -4,6 +4,7 @@ import { FileSystemIconLoader } from '@iconify/utils/lib/loader/node-loaders'
 import { getIcons } from './build/getIcons'
 
 const icons = getIcons()
+
 export default defineConfig({
   presets: [
     presetUno(),

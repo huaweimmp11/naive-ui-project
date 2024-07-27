@@ -1,7 +1,7 @@
 <template>
-  <CommonPage>
+  <CommonPage showFooter>
     <ul class="grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] justify-items-center gap-16">
-      <!-- <li
+      <li
         v-for="item in icons"
         :key="item"
         class="w-160 f-c-c flex-col cursor-pointer rounded-12 px-12 py-24 card-border auto-bg"
@@ -14,7 +14,7 @@
         >
           {{ item }}
         </span>
-      </li> -->
+      </li>
     </ul>
   </CommonPage>
 </template>
@@ -23,7 +23,7 @@
 import { useClipboard } from '@vueuse/core'
 import { watch } from 'vue'
 import CommonPage from '@/components/CommonPage.vue'
-// import icons from 'isme:icons'
+import icons from 'isme:icons'
 
 defineOptions({
   name: 'IconList'
@@ -32,6 +32,6 @@ defineOptions({
 const { copy, copied } = useClipboard()
 
 watch(copied, (val) => {
-  val && window.AnimationTimeline$message.success('已复制到剪切板')
+  val && window.$message.success('已复制到剪切板')
 })
 </script>
