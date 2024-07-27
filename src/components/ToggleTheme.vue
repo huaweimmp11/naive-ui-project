@@ -11,7 +11,9 @@ defineOptions({
 })
 
 const appStore = useAppStore()
+
 const isDark = useDark()
+
 async function toggleDark({ clientX, clientY }) {
   function handler() {
     appStore.toggleDark()

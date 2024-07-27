@@ -12,6 +12,7 @@
     }
   ],
   "compilerOptions": {
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "suppressImplicitAnyIndexErrors": true,
     "ignoreDeprecations": "5.0",

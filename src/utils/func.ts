@@ -9,7 +9,6 @@ import { type NotificationType } from 'naive-ui'
 import * as NaiveUI from 'naive-ui'
 import { computed, type VNodeChild } from 'vue'
 import { useAppStore } from '@/store/modules/app'
-import os from 'os'
 
 /** 常用通知 notify */
 export function baseNotify(options?: {

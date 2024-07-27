@@ -1,10 +1,9 @@
-<!--------------------------------
- - @Author: Ronnie Zhang
- - @LastEditor: Ronnie Zhang
- - @LastEditTime: 2023/12/16 18:46:06
- - @Email: zclzone@outlook.com
- - Copyright © 2023 Ronnie Zhang(大脸怪) | https://isme.top
- --------------------------------->
+<!--
+   @description layout 左部分
+   @author slh
+   @copyright NanJing Anshare Tech .Com
+   @createDate 2024年07月27日 15:53:23
+-->
 
 <template>
   <SideLogo border-b="1px solid light_border dark:dark_border" />

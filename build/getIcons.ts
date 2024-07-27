@@ -8,12 +8,12 @@ import dynamicIcons from '../src/assets/icons/dynamic-icons'
 export function getIcons() {
   const feFiles = globSync('src/assets/icons/feather/*.svg', { nodir: true })
   const meFiles = globSync('src/assets/icons/isme/*.svg', { nodir: true })
-  const feIcons = feFiles.map((filePath) => {
+  const feIcons = feFiles.map((filePath: any) => {
     const fileName = path.basename(filePath) // 获取文件名，包括后缀
     const fileNameWithoutExt = path.parse(fileName).name // 获取去除后缀的文件名
     return `i-fe:${fileNameWithoutExt}`
   })
-  const meIcons = meFiles.map((filePath) => {
+  const meIcons = meFiles.map((filePath: any) => {
     const fileName = path.basename(filePath) // 获取文件名，包括后缀
     const fileNameWithoutExt = path.parse(fileName).name // 获取去除后缀的文件名
     return `i-me:${fileNameWithoutExt}`
@@ -27,5 +27,5 @@ export function getIcons() {
  */
 export function getPagePathes() {
   const files = globSync('src/views/**/*.vue')
-  return files.map((item) => `/${path.normalize(item).replace(/\\/g, '/')}`)
+  return files.map((item: any) => `/${path.normalize(item).replace(/\\/g, '/')}`)
 }

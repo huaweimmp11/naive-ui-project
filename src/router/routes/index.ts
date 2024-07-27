@@ -24,4 +24,24 @@ export const basicRoutes = [
   }
 ]
 
-export const asyncRoutes = []
+export const asyncRoutes = [
+  {
+    name: RouteName.ReferenceTool,
+    path: '/reference-tool',
+    meta: {
+      title: '引用工具',
+      icon: 'tool'
+    },
+    children: [
+      {
+        name: RouteName.IconList,
+        path: '/icon-list',
+        component: () => import('@/views/ReferenceTool/IconList.vue'),
+        meta: {
+          title: '图标展示',
+          icon: 'life-buoy'
+        }
+      }
+    ]
+  }
+]

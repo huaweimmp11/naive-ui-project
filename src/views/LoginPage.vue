@@ -64,7 +64,6 @@
 <script setup lang="ts">
 import Vcode from 'vue3-puzzle-vcode'
 import { computed, onMounted, ref } from 'vue'
-import axios from '@/utils/axios'
 import { useRoute, useRouter } from 'vue-router'
 import { RouteName } from '@/router/routes/contants'
 import { getLoginData } from '@/api/retention'

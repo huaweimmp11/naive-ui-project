@@ -5,6 +5,8 @@ import { wrapperEnv } from './build/wrapperEnv'
 import { createProxy } from './build/devserver'
 import { fileURLToPath } from 'url'
 import Unocss from 'unocss/vite'
+// @ts-ignore
+import { pluginIcons, pluginPagePathes } from './build/plugin-isme'
 
 // https://vitejs.dev/config/
 // export default defineConfig({

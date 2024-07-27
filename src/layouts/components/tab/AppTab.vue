@@ -1,3 +1,10 @@
+<!--
+   @description NormalHeader 路由 tabs
+   @author slh
+   @copyright NanJing Anshare Tech .Com
+   @createDate 2024年07月26日 10:15:23
+-->
+
 <template>
   <div>
     <n-tabs

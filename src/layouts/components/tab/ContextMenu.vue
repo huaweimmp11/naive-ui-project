@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { useTabStore } from '@/store'
+import { useTabStore } from '@/store/modules/tab'
 import { computed, h } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -123,7 +123,7 @@ function handleHideDropdown() {
   emit('update:show', false)
 }
 
-function handleSelect(key) {
+function handleSelect(key: any) {
   const actionFn = actionMap.get(key)
   actionFn && actionFn()
   handleHideDropdown()

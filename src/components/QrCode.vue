@@ -11,11 +11,11 @@
       <template #trigger>
         <img :src="qrCodeImage" alt="QR Code" />
       </template>
-      <n-gradient-text gradient="linear-gradient(90deg, #eb0a0a, #18fbec)"
+      <n-gradient-text gradient="linear-gradient(90deg, #dbffe2, #c2d5ff, #f9e6be)"
         >1. 确保本地服务器监听iPV4地址接口</n-gradient-text
       >
       <br />
-      <n-gradient-text gradient="linear-gradient(90deg, #18fbec, #eb0a0a)"
+      <n-gradient-text gradient="linear-gradient(90deg, #fafbbc, #14f5db, #ADFBA7, #00b8c2)"
         >2. 确保你的电脑和手机连接在同一个局域网内</n-gradient-text
       >
     </n-tooltip>

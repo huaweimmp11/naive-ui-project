@@ -10,5 +10,11 @@ export enum RouteName {
   Login = 'Login',
 
   /** 主页 */
-  HomeView = 'HomeView'
+  HomeView = 'HomeView',
+
+  /** 引用工具 */
+  ReferenceTool = 'ReferenceTool',
+
+  /** 引用工具 - 图标列表 */
+  IconList = 'IconList'
 }

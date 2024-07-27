@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@arco-design/color": "^0.4.0",
+    "@types/glob": "^8.1.0",
     "@vueuse/core": "^10.11.0",
     "axios": "^1.7.2",
     "body-parser": "^1.20.2",
@@ -22,6 +23,8 @@
     "dayjs": "^1.11.12",
     "echarts": "^5.5.1",
     "express": "^4.19.2",
+    "glob": "^11.0.0",
+    "golb": "^0.0.9",
     "lodash-es": "^4.17.21",
     "mysql": "^2.18.1",
     "naive-ui": "^2.39.0",
