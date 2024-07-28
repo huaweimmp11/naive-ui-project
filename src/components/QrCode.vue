@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import axios from '@/utils/axios'
+import { service } from '@/utils/axios'
 import QRCode from 'qrcode'
 import { onMounted, ref } from 'vue'
 
@@ -37,7 +37,7 @@ const privateIP = ref<string>('')
 
 async function getPrivateIP() {
   try {
-    const { data } = await axios({
+    const { data } = await service({
       url: '/private-ip',
       method: 'get'
     })

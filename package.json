@@ -32,6 +32,7 @@
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
     "qrcode": "^1.5.3",
+    "uuid": "^10.0.0",
     "vue": "^3.3.10",
     "vue-echarts": "^6.7.3",
     "vue-router": "^4.2.5",

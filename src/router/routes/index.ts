@@ -41,6 +41,15 @@ export const asyncRoutes = [
           title: '图标展示',
           icon: 'life-buoy'
         }
+      },
+      {
+        name: RouteName.ImageUpload,
+        path: '/image-upload',
+        component: () => import('@/views/ReferenceTool/ImageUpload.vue'),
+        meta: {
+          title: '图片上传',
+          icon: 'upload'
+        }
       }
     ]
   }

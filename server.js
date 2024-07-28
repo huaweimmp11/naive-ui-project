@@ -7,7 +7,8 @@ import bodyparser from 'body-parser'
 
 const app = express()
 /** 获取 post请求传递来的参数 */
-app.use(bodyparser())
+app.use(bodyparser.json({ limit: '1000mb' }))
+app.use(bodyparser.urlencoded({ limit: '1000mb', extended: true }))
 
 app.use(cors())
 
@@ -22,6 +23,22 @@ const connection = createConnection({
   post: 3306
 })
 connection.connect()
+
+function send500(message) {
+  return {
+    code: 500,
+    data: null,
+    message
+  }
+}
+
+function send200(data) {
+  return {
+    code: 200,
+    data,
+    message: 'success'
+  }
+}
 
 // 解决跨域
 app.all('*', function (req, res, next) {
@@ -38,45 +55,26 @@ app.post(`/login`, (req, res) => {
   const { username, password } = req.body
   connection.query(`SELECT * FROM user WHERE name = '${username}'`, (err, rows) => {
     if (rows.length <= 0) {
-      res.send({
-        code: 500,
-        data: null,
-        message: '无此用户'
-      })
+      res.send(send500('无此用户'))
     } else {
       const user = rows[0]
       if (user.password === password) {
-        res.send({
-          code: 200,
-          data: rows,
-          message: 'success'
-        })
+        res.send(send200(rows))
       } else {
-        return res.send({
-          code: 500,
-          data: null,
-          message: '密码错误'
-        })
+        return res.send(send500('密码错误'))
       }
     }
   })
 })
 
+// HomeView 获取卡片信息
 app.get('/getHomeMottoMsg', (req, res) => {
   // 从 lifemotto 表中随机取20条数据
   connection.query(`SELECT * FROM lifemotto ORDER BY RAND() LIMIT 20`, (err, rows) => {
     if (err) {
-      res.send({
-        code: 500,
-        data: null,
-        message: '密码错误'
-      })
+      res.send(send500('密码错误'))
     } else {
-      res.send({
-        code: 200,
-        data: rows,
-        message: 'success'
-      })
+      res.send(send200(rows))
     }
   })
 })
@@ -94,11 +92,46 @@ app.get('/private-ip', (req, res) => {
     }
     if (privateIP !== '未找到私有IP') break
   }
-  res.send({
-    code: 200,
-    data: privateIP,
-    message: 'success'
+  res.send(send200(privateIP))
+})
+
+// 引用工具-图片上传 获取图片列表
+app.get('/image-upload-list', (req, res) => {
+  // 从 lifemotto 表中随机取20条数据
+  connection.query(`SELECT * FROM imageupload`, (err, rows) => {
+    if (err) {
+      res.send(send500('获取失败'))
+    } else {
+      res.send(send200(rows))
+    }
   })
+})
+
+// 引用工具-图片上传 上传接口
+app.post('/image-upload', async (req, res) => {
+  const { id, fileName, url } = req.body
+  try {
+    connection.query(
+      `INSERT INTO imageupload (id, filename, url) VALUES ("${id}", "${fileName}", "${url}")`,
+      (err, rows) => {
+        if (err) {
+          res.send(send500('上传失败'))
+        } else {
+          res.send({
+            code: 200,
+            data: null,
+            message: '上传成功'
+          })
+        }
+      }
+    )
+  } catch (error) {
+    res.send({
+      code: 500,
+      data: null,
+      message: '上传失败'
+    })
+  }
 })
 
 app.listen(port, () => {

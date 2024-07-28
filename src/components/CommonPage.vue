@@ -44,9 +44,7 @@
   </main>
   <footer class="bg-#f5f6fb dark:bg-#121212">
     <slot v-if="$slots.footer" name="footer" />
-    <AppCard v-else-if="showFooter" class="py-12">
-      <TheFooter />
-    </AppCard>
+    <AppCard v-else-if="showFooter" class="py-12"> </AppCard>
   </footer>
 </template>
 

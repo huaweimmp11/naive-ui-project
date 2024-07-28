@@ -16,5 +16,8 @@ export enum RouteName {
   ReferenceTool = 'ReferenceTool',
 
   /** 引用工具 - 图标列表 */
-  IconList = 'IconList'
+  IconList = 'IconList',
+
+  /** 引用工具 - 图片上传 */
+  ImageUpload = 'ImageUpload'
 }

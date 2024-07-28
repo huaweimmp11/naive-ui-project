@@ -1,3 +1,10 @@
+<!--
+   @description 引用工具 图标展示
+   @author slh
+   @copyright NanJing Anshare Tech .Com
+   @createDate 2024年07月27日 16:21:19
+-->
+
 <template>
   <CommonPage showFooter>
     <ul class="grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] justify-items-center gap-16">
