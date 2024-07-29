@@ -19,5 +19,11 @@ export enum RouteName {
   IconList = 'IconList',
 
   /** 引用工具 - 图片上传 */
-  ImageUpload = 'ImageUpload'
+  ImageUpload = 'ImageUpload',
+
+  /** 引用工具 - 二维码 */
+  TwoDimensionalCode = 'TwoDimensionalCode',
+
+  /** 引用工具 - 卡片拖拽 */
+  CardDrag = 'CardDrag'
 }

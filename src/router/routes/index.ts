@@ -50,7 +50,25 @@ export const asyncRoutes = [
           title: '图片上传',
           icon: 'upload'
         }
+      },
+      {
+        name: RouteName.TwoDimensionalCode,
+        path: '/two-dimensional-code',
+        component: () => import('@/views/ReferenceTool/TwoDimensionalCode.vue'),
+        meta: {
+          title: '二维码',
+          icon: 'award'
+        }
       }
+      // {
+      //   name: RouteName.CardDrag,
+      //   path: '/card-drag',
+      //   component: () => import('@/views/ReferenceTool/CardDrag.vue'),
+      //   meta: {
+      //     title: '卡片拖拽',
+      //     icon: 'droplet'
+      //   }
+      // }
     ]
   }
 ]

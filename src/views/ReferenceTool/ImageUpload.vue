@@ -6,7 +6,7 @@
 -->
 
 <template>
-  <CommonPage>
+  <CommonPage showFooter>
     <n-upload
       class="mx-auto w-[75%] p-20 text-center"
       :custom-request="handleUpload"
@@ -28,7 +28,7 @@
             <div class="h-160 f-c-c">
               <n-image width="200" :src="item.url" />
             </div>
-            <n-space class="mt-16" justify="space-evenly">
+            <n-space class="mt-16" justify="space-evenly" style="gap: none">
               <n-button dashed type="primary" @click="copy(item.url as string)"> url </n-button>
               <n-button dashed type="primary" @click="copy(`![${item.fileName}](${item.url})`)">
                 MD
@@ -39,6 +39,9 @@
                 @click="copy(`&lt;img src=&quot;${item.url}&quot; /&gt;`)"
               >
                 img
+              </n-button>
+              <n-button dashed type="primary" @click="printImage(item.url as string)">
+                打印
               </n-button>
             </n-space>
           </n-card>
@@ -55,6 +58,7 @@ import type { UploadCustomRequestOptions, UploadSettledFileInfo } from 'naive-ui
 import { onMounted, ref, watch } from 'vue'
 import CommonPage from '@/components/CommonPage.vue'
 import { getImageUploadList, uploadImageByBase64 } from '@/api/retention'
+import printJS from 'print-js'
 
 defineOptions({
   name: 'ImageUpload'
@@ -122,6 +126,14 @@ const onBeforeUpload = ({ file }: { file: UploadSettledFileInfo }) => {
     return false
   }
   return true
+}
+
+const printImage = (url: string) => {
+  printJS({
+    printable: url,
+    type: 'image',
+    style: 'img { width: 100%; }'
+  })
 }
 
 onMounted(async () => {
