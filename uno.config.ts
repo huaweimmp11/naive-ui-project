@@ -5,8 +5,6 @@ import { getIcons } from './build/getIcons'
 
 const icons = getIcons()
 
-console.log('icons ', icons)
-
 export default defineConfig({
   presets: [
     presetUno(),

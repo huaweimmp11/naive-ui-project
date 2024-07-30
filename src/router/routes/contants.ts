@@ -25,5 +25,14 @@ export enum RouteName {
   TwoDimensionalCode = 'TwoDimensionalCode',
 
   /** 引用工具 - 卡片拖拽 */
-  CardDrag = 'CardDrag'
+  CardDrag = 'CardDrag',
+
+  /** 编辑器 */
+  Editor = 'Editor',
+
+  /** 编辑器 - 富文本 */
+  RichText = 'RichText',
+
+  /** 编辑器 - MarkDown */
+  MarkDown = 'MarkDown'
 }

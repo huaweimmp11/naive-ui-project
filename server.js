@@ -1,18 +1,15 @@
 import express from 'express'
 import cors from 'cors'
 import os from 'os'
-/** createConnection 建立连接&关闭连接 */
 import { createConnection } from 'mysql'
 import bodyparser from 'body-parser'
 
 const app = express()
-/** 获取 post请求传递来的参数 */
+
 app.use(bodyparser.json({ limit: '1000mb' }))
 app.use(bodyparser.urlencoded({ limit: '1000mb', extended: true }))
-
 app.use(cors())
 
-/** （监听的端口号） */
 const port = 1025
 
 const connection = createConnection({
@@ -70,7 +67,7 @@ app.post(`/login`, (req, res) => {
 // HomeView 获取卡片信息
 app.get('/getHomeMottoMsg', (req, res) => {
   // 从 lifemotto 表中随机取20条数据
-  connection.query(`SELECT * FROM lifemotto ORDER BY RAND() LIMIT 20`, (err, rows) => {
+  connection.query(`SELECT * FROM life_motto ORDER BY RAND() LIMIT 20`, (err, rows) => {
     if (err) {
       res.send(send500('密码错误'))
     } else {
@@ -97,8 +94,7 @@ app.get('/private-ip', (req, res) => {
 
 // 引用工具-图片上传 获取图片列表
 app.get('/image-upload-list', (req, res) => {
-  // 从 lifemotto 表中随机取20条数据
-  connection.query(`SELECT * FROM imageupload`, (err, rows) => {
+  connection.query(`SELECT * FROM image_upload`, (err, rows) => {
     if (err) {
       res.send(send500('获取失败'))
     } else {
@@ -112,7 +108,7 @@ app.post('/image-upload', async (req, res) => {
   const { id, fileName, url } = req.body
   try {
     connection.query(
-      `INSERT INTO imageupload (id, filename, url) VALUES ("${id}", "${fileName}", "${url}")`,
+      `INSERT INTO image_upload (id, filename, url) VALUES ("${id}", "${fileName}", "${url}")`,
       (err, rows) => {
         if (err) {
           res.send(send500('上传失败'))
@@ -121,6 +117,45 @@ app.post('/image-upload', async (req, res) => {
             code: 200,
             data: null,
             message: '上传成功'
+          })
+        }
+      }
+    )
+  } catch (error) {
+    res.send({
+      code: 500,
+      data: null,
+      message: '上传失败'
+    })
+  }
+})
+
+// 编辑器-MarkDown 获取已保存MarkDown列表
+app.get('/markdown-list', (req, res) => {
+  connection.query(`SELECT * FROM markdown_list`, (err, rows) => {
+    if (err) {
+      console.log(err)
+      res.send(send500('获取失败'))
+    } else {
+      res.send(send200(rows))
+    }
+  })
+})
+
+// 编辑器-MarkDown 保存
+app.post('/markdown-save', async (req, res) => {
+  const { id, content, createTime } = req.body
+  try {
+    connection.query(
+      `INSERT INTO markdown_list (id, content, createTime) VALUES ('${id}', ${content}, '${createTime}')`,
+      (err, rows) => {
+        if (err) {
+          res.send(send500('保存失败'))
+        } else {
+          res.send({
+            code: 200,
+            data: null,
+            message: '保存成功'
           })
         }
       }

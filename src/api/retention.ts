@@ -40,3 +40,20 @@ export function getImageUploadList() {
     method: 'get'
   })
 }
+
+/** 编辑器-MarkDown  查询 */
+export function getMarkDownList() {
+  return service({
+    url: '/markdown-list',
+    method: 'get'
+  })
+}
+
+/** 编辑器-MarkDown  保存 */
+export function addMarkDownToList(data: { id: string; content: string; createTime: string }) {
+  return service({
+    url: '/markdown-save',
+    method: 'post',
+    data
+  })
+}

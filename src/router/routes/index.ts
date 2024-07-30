@@ -70,5 +70,33 @@ export const asyncRoutes = [
       //   }
       // }
     ]
+  },
+  {
+    name: RouteName.Editor,
+    path: '/editor',
+    meta: {
+      title: '编辑器',
+      icon: 'edit'
+    },
+    children: [
+      {
+        name: RouteName.RichText,
+        path: '/rich-text',
+        component: () => import('@/views/EditTool/RichText/RichText.vue'),
+        meta: {
+          title: '富文本',
+          icon: 'file-text'
+        }
+      },
+      {
+        name: RouteName.MarkDown,
+        path: '/mark-down',
+        component: () => import('@/views/EditTool/MarkDown/MarkDown.vue'),
+        meta: {
+          title: 'MarkDown',
+          icon: 'life-buoy'
+        }
+      }
+    ]
   }
 ]

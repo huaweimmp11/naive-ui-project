@@ -9,6 +9,8 @@ import { type NotificationType } from 'naive-ui'
 import * as NaiveUI from 'naive-ui'
 import { computed, type VNodeChild } from 'vue'
 import { useAppStore } from '@/store/modules/app'
+import { service } from './axios'
+import type { AxiosRequestConfig } from 'axios'
 
 /** 常用通知 notify */
 export function baseNotify(options?: {
@@ -100,7 +102,6 @@ export function setupNaiveDiscreteApi() {
     themeOverrides: useAppStore().naiveThemeOverrides
   }))
   const { loadingBar } = NaiveUI.createDiscreteApi(['loadingBar'], { configProviderProps })
-
   window.$loadingBar = loadingBar
 }
 
@@ -121,7 +122,7 @@ export function pxToPx(size: number) {
   return vwToPx(pxToVw(size))
 }
 
-export default function px2vw(size: number | string): string {
+export function px2vw(size: number | string): string {
   if (!size) {
     return size as string
   }
@@ -145,4 +146,95 @@ export function pxToVw(size: number) {
 /** 获取postcss视窗宽度 */
 export function getViewportWidth() {
   return document.documentElement.clientWidth
+}
+
+/** 通用 axios 导出 */
+export async function download(
+  url: string,
+  fileName: string,
+  remoteOptions: AxiosRequestConfig = {}
+) {
+  const { method = 'get', ...options } = remoteOptions
+  const res = await service({
+    url,
+    method,
+    ...options,
+    responseType: 'blob'
+  })
+
+  if (!isBlobPart(res)) {
+    return
+  }
+  const blob = new Blob([res])
+  downloadBlob(blob, fileName)
+}
+
+function isBlobPart(blob: any): blob is BlobPart {
+  return blob
+}
+
+export function downloadBlob(blob: any, fileName: string) {
+  const url = URL.createObjectURL(blob)
+  nativeDownload(url, fileName)
+  URL.revokeObjectURL(url)
+}
+
+export function nativeDownload(url: string, fileName: string = '文件', params: any = {}) {
+  // ch/ff
+  const aTag = document.createElement('a')
+  aTag.style.display = 'none'
+  aTag.download = fileName
+  aTag.href = mergeHref(url, stringifyParams(params))
+  // 兼容firefox
+  document.body.appendChild(aTag)
+  aTag.click()
+  document.body.removeChild(aTag)
+}
+
+export function mergeHref(url: string, params: string) {
+  const index = url.indexOf('?')
+  if (index < 0) {
+    return url + (params ? `?${params}` : '')
+  }
+  if (index === url.length - 1) {
+    return url + params
+  }
+  return url + (params ? `&${params}` : '')
+}
+
+export function stringifyParams(
+  paramsMap: any,
+  isJSON: boolean = false,
+  isEncode: boolean = false
+) {
+  paramsMap = paramsMap || {}
+  const paramsEntries = Object.entries(paramsMap)
+  if (!paramsEntries.length) {
+    return ''
+  }
+  const stringifyValue = stringifyParamValue(isJSON, isEncode)
+  const paramsArr = paramsEntries.reduce((result: string[], [key, value]) => {
+    const param = [key, stringifyValue(value)].join('=')
+    result.push(param)
+    return result
+  }, [])
+  const params = paramsArr.join('&')
+  return params
+}
+
+export function stringifyParamValue(isJSON: boolean, isEncode: boolean) {
+  if (isJSON) {
+    return (value: any) => {
+      const temp = JSON.stringify(value)
+      return encode(temp, isEncode)
+    }
+  }
+  return (value: any) => {
+    const temp = value
+    return encode(temp, isEncode)
+  }
+}
+
+function encode(value: string, isEncode: boolean = false) {
+  return isEncode ? encodeURIComponent(value) : value
 }
