@@ -7,13 +7,24 @@
 
 <template>
   <CommonPage showFooter>
-    <MessageCard :height="820" title="">
+    <MessageCard title="文章标题" size="small" :height="120" :contentSegmented="true">
+      <n-input v-model:value="title" type="text" placeholder="请输入文章标题" />
+    </MessageCard>
+    <MessageCard :height="900" title="">
       <MdEditor v-model="text" :theme="theme" />
       <div class="mt-10 flex gap-20">
-        <n-button size="small" @click="saveMd">保存</n-button>
+        <n-button size="small" @click="updataLock ? updateMd() : saveMd()">{{
+          updataLock ? '更新保存' : '新增保存'
+        }}</n-button>
         <n-button size="small" type="primary" @click="exportMd">导出</n-button>
       </div>
-      <DataTable />
+      <DataTable
+        :data="tableData"
+        class="mt-10"
+        :maxHeight="200"
+        :showAction="true"
+        :columns="columns"
+      />
     </MessageCard>
   </CommonPage>
 </template>
@@ -30,7 +41,8 @@ import MessageCard from '@/components/MessageCard.vue'
 import { NButton } from 'naive-ui'
 import { useAppStore } from '@/store/modules/app'
 import DataTable from '@/components/DataTable.vue'
-import { getMarkDownList, addMarkDownToList } from '@/api/retention'
+import { getMarkDownList, addMarkDownToList, updateMarkDownToList } from '@/api/retention'
+import type { MarkDownTableColumn } from '@/utils/typeset'
 
 defineOptions({
   name: 'MarkDown'
@@ -40,38 +52,128 @@ const text = ref<string>('')
 
 const appStore = useAppStore()
 
+const title = ref<string>('')
+
+const tableData = ref<MarkDownTableColumn[]>([])
+
+const columns = ref([
+  {
+    title: '序号',
+    key: 'no'
+  },
+  {
+    title: '标题',
+    key: 'title'
+  },
+  {
+    title: '创建时间',
+    key: 'createTime'
+  },
+  {
+    title: '操作',
+    key: 'actions',
+    render(row: MarkDownTableColumn) {
+      return [
+        h(
+          NButton,
+          {
+            type: 'primary',
+            class: 'mr-10',
+            onClick: () => edit(row)
+          },
+          { default: () => '编辑' }
+        ),
+        h(
+          NButton,
+          {
+            type: 'warning',
+            onClick: () => play(row)
+          },
+          { default: () => '导出' }
+        )
+      ]
+    }
+  }
+])
+
+const play = (row: MarkDownTableColumn) => {
+  window.$message.info(`${row}`)
+}
+
+const edit = (row: MarkDownTableColumn) => {
+  updataLock.value = true
+  text.value = row.content
+  title.value = row.title
+  currentRow.value = { ...row }
+}
+
+const currentRow = ref({} as MarkDownTableColumn as any)
+
+const updataLock = ref(false)
+
 const theme = computed(() => {
   return appStore.isDark ? 'dark' : 'light'
 })
 
 const saveMd = async () => {
+  if (!title.value) {
+    window.$message.warning('请输入标题')
+    return
+  }
   if (!text.value) {
     window.$message.warning('请输入内容')
     return
   }
   const createTime = dayjs().format('YYYY-MM-DD HH:mm:ss')
-  const { code } = await addMarkDownToList({
+  const res: any = await addMarkDownToList({
     id: uuidv4(),
     content: JSON.stringify(text.value),
-    createTime
+    createTime,
+    title: title.value
   })
+  const { code, message } = res
   if (code !== 200) {
-    window.$message.error('保存失败')
-    return
+    window.$message.error(message)
+  } else {
+    window.$message.success(message)
   }
-  window.$message.success('保存成功')
+  resetOptions()
+  fetchData()
+}
+
+const updateMd = async () => {
+  const res: any = await updateMarkDownToList({
+    ...currentRow.value,
+    title: title.value,
+    content: JSON.stringify(text.value)
+  })
+  const { code, message } = res
+  if (code !== 200) {
+    window.$message.error(message)
+  } else {
+    window.$message.success(message)
+  }
+  resetOptions()
   fetchData()
 }
 
 const exportMd = () => {}
 
+const resetOptions = () => {
+  text.value = ''
+  title.value = ''
+  updataLock.value = false
+  currentRow.value = {}
+}
+
 const fetchData = async () => {
   const { code, data } = await getMarkDownList()
   if (code !== 200) return
-  data.value = data
+  tableData.value = data
 }
 
 onMounted(() => {
   fetchData()
+  resetOptions()
 })
 </script>

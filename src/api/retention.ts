@@ -50,9 +50,28 @@ export function getMarkDownList() {
 }
 
 /** 编辑器-MarkDown  保存 */
-export function addMarkDownToList(data: { id: string; content: string; createTime: string }) {
+export function addMarkDownToList(data: {
+  id: string
+  content: string
+  createTime: string
+  title: string
+}) {
   return service({
     url: '/markdown-save',
+    method: 'post',
+    data
+  })
+}
+
+/** 编辑器-MarkDown  更新 */
+export function updateMarkDownToList(data: {
+  id: string
+  content: string
+  createTime: string
+  title: string
+}) {
+  return service({
+    url: '/markdown-update',
     method: 'post',
     data
   })

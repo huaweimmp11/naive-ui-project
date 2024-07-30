@@ -29,12 +29,24 @@ function send500(message) {
   }
 }
 
-function send200(data) {
+function send200(data, message = 'success') {
   return {
     code: 200,
     data,
-    message: 'success'
+    message
   }
+}
+
+function queryFunc(sql) {
+  return new Promise((resolve, reject) => {
+    connection.query(sql, (err, rows) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(rows)
+      }
+    })
+  })
 }
 
 // 解决跨域
@@ -67,9 +79,9 @@ app.post(`/login`, (req, res) => {
 // HomeView 获取卡片信息
 app.get('/getHomeMottoMsg', (req, res) => {
   // 从 lifemotto 表中随机取20条数据
-  connection.query(`SELECT * FROM life_motto ORDER BY RAND() LIMIT 20`, (err, rows) => {
-    if (err) {
-      res.send(send500('密码错误'))
+  queryFunc(`SELECT * FROM life_motto ORDER BY RAND() LIMIT 20`).then((rows) => {
+    if (!rows) {
+      res.send(send500('查询失败'))
     } else {
       res.send(send200(rows))
     }
@@ -94,8 +106,8 @@ app.get('/private-ip', (req, res) => {
 
 // 引用工具-图片上传 获取图片列表
 app.get('/image-upload-list', (req, res) => {
-  connection.query(`SELECT * FROM image_upload`, (err, rows) => {
-    if (err) {
+  queryFunc(`SELECT * FROM image_upload`).then((rows) => {
+    if (!rows) {
       res.send(send500('获取失败'))
     } else {
       res.send(send200(rows))
@@ -132,9 +144,8 @@ app.post('/image-upload', async (req, res) => {
 
 // 编辑器-MarkDown 获取已保存MarkDown列表
 app.get('/markdown-list', (req, res) => {
-  connection.query(`SELECT * FROM markdown_list`, (err, rows) => {
-    if (err) {
-      console.log(err)
+  queryFunc(`SELECT * FROM markdown_list`).then((rows) => {
+    if (!rows) {
       res.send(send500('获取失败'))
     } else {
       res.send(send200(rows))
@@ -142,32 +153,46 @@ app.get('/markdown-list', (req, res) => {
   })
 })
 
+// 编辑器-MarkDown 更新
+app.post('/markdown-update', (req, res) => {
+  const { id, content, createTime, title } = req.body
+  connection.query(
+    `UPDATE markdown_list SET content = ${content}, title = '${title}', createTime = '${createTime}'  WHERE id = '${id}'
+`,
+    (err, rows) => {
+      if (err) {
+        console.log('err ', err)
+        res.send(send500('更新失败'))
+      } else {
+        res.send(send200(null, '更新成功'))
+      }
+    }
+  )
+})
+
 // 编辑器-MarkDown 保存
 app.post('/markdown-save', async (req, res) => {
-  const { id, content, createTime } = req.body
-  try {
-    connection.query(
-      `INSERT INTO markdown_list (id, content, createTime) VALUES ('${id}', ${content}, '${createTime}')`,
-      (err, rows) => {
-        if (err) {
-          res.send(send500('保存失败'))
-        } else {
-          res.send({
-            code: 200,
-            data: null,
-            message: '保存成功'
-          })
-        }
-      }
-    )
-  } catch (error) {
-    res.send({
-      code: 500,
-      data: null,
-      message: '上传失败'
+  const { id, content, createTime, title } = req.body
+  queryFunc(`SELECT * FROM markdown_list`).then((rows) => {
+    if (!rows) return res.send(send500('获取失败'))
+    const length = rows.length
+    queryFunc(`SELECT * FROM markdown_list WHERE title = '${title}'`).then((rows) => {
+      if (rows.length > 0) return res.send(send500('已有重复标题'))
+      queryFunc(
+        `INSERT INTO markdown_list (id, content, no, createTime, title) VALUES ('${id}', ${content}, ${length + 1}, '${createTime}', '${title}')`
+      ).then((rows) => {
+        if (!rows) return res.send(send500('保存失败'))
+        return res.send({
+          code: 200,
+          data: null,
+          message: '保存成功'
+        })
+      })
     })
-  }
+  })
 })
+
+// 编辑器-MarkDown 更新
 
 app.listen(port, () => {
   console.log(`连接成功`)
