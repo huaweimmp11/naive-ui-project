@@ -16,13 +16,14 @@
         <n-button size="small" @click="updataLock ? updateMd() : saveMd()">{{
           updataLock ? '更新保存' : '新增保存'
         }}</n-button>
+        <n-button size="small" type="info" @click="exportMarkDownTable">导出MarkDown列表</n-button>
       </div>
       <DataTable
         :data="tableData"
         class="mt-10"
         :maxHeight="200"
-        :showAction="true"
         :columns="columns"
+        @done="tableMonted"
       />
     </MessageCard>
   </CommonPage>
@@ -36,7 +37,7 @@ import { MdEditor } from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
 import CommonPage from '@/components/CommonPage.vue'
 import MessageCard from '@/components/MessageCard.vue'
-import { NButton } from 'naive-ui'
+import { NButton, type DataTableInst } from 'naive-ui'
 import { useAppStore } from '@/store/modules/app'
 import DataTable from '@/components/DataTable.vue'
 import {
@@ -46,6 +47,7 @@ import {
   exportMarkDownById
 } from '@/api/retention'
 import type { MarkDownTableColumn } from '@/utils/typeset'
+import { downloadCsv } from '@/utils/func'
 
 defineOptions({
   name: 'MarkDown'
@@ -57,19 +59,22 @@ const appStore = useAppStore()
 
 const title = ref<string>('')
 
+const dataTable = ref()
+
 const tableData = ref<MarkDownTableColumn[]>([])
 
 const columns = ref([
   {
     title: '序号',
-    key: 'no'
+    key: 'no',
+    sorter: (row1: MarkDownTableColumn, row2: MarkDownTableColumn) => row1.no - row2.no
   },
   {
     title: '标题',
     key: 'title'
   },
   {
-    title: '创建时间',
+    title: '最近修改时间',
     key: 'createTime'
   },
   {
@@ -104,6 +109,10 @@ const edit = (row: MarkDownTableColumn) => {
   text.value = row.content
   title.value = row.title
   currentRow.value = { ...row }
+}
+
+const tableMonted = (val: DataTableInst) => {
+  dataTable.value = val
 }
 
 const currentRow = ref({} as MarkDownTableColumn as any)
@@ -160,6 +169,14 @@ const exportMd = (row: MarkDownTableColumn) => {
   exportMarkDownById({
     id: row.id,
     filename: `${row.title}.md`
+  })
+}
+
+const exportMarkDownTable = () => {
+  downloadCsv({
+    tableData: tableData.value,
+    columns: columns.value.slice(0, 3),
+    fileName: 'MarkDown列表'
   })
 }
 

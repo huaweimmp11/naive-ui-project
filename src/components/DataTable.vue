@@ -7,6 +7,7 @@
 
 <template>
   <n-data-table
+    ref="tableRef"
     :columns="refColumns"
     :data="props.data"
     :pagination="props.showPagination"
@@ -21,11 +22,14 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import type { DataTableInst } from 'naive-ui'
 
 defineOptions({
   name: 'DataTable'
 })
+
+const emit = defineEmits(['done'])
 
 const props = defineProps({
   data: {
@@ -74,13 +78,12 @@ const props = defineProps({
   minHeight: {
     type: [Number, String],
     default: undefined
-  },
-  /** 是否展示操作列 */
-  showAction: {
-    type: Boolean,
-    default: false
   }
 })
 
 const refColumns = ref(props.columns)
+
+const tableRef = ref<DataTableInst>()
+
+onMounted(() => emit('done', tableRef.value))
 </script>

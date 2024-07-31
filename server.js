@@ -59,7 +59,7 @@ function generateMarkdown(data) {
   let markdown = ''
   data.forEach((row) => {
     markdown += row.content // 添加内容
-    markdown += `\n\n---\n\n---\n\n` // 添加分割线
+    markdown += `\n\n---\n\n` // 添加分割线
   })
   return markdown
 }
@@ -163,6 +163,7 @@ app.get('/markdown-list', (req, res) => {
     if (!rows) {
       res.send(send500('获取失败'))
     } else {
+      rows.sort((a, b) => a.no - b.no)
       res.send(send200(rows))
     }
   })
@@ -195,8 +196,11 @@ app.post('/markdown-export', (req, res) => {
       if (err) {
         return res.send(send500('文件生成失败'))
       }
-      res.setHeader('Content-Disposition', `attachment; filename=${filename}.md`)
-      res.setHeader('Content-Type', 'text/markdown')
+      res.setHeader(
+        'Content-Disposition',
+        `attachment; filename=${encodeURIComponent(filename)}.md`
+      )
+      res.setHeader('Content-Type', 'text/plain')
       const fileStream = fs.createReadStream(filePath)
       fileStream.pipe(res)
       fileStream.on('end', () => {
@@ -231,8 +235,6 @@ app.post('/markdown-save', async (req, res) => {
     })
   })
 })
-
-// 编辑器-MarkDown 更新
 
 app.listen(port, () => {
   console.log(`连接成功`)

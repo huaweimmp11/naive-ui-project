@@ -11,4 +11,5 @@ export interface MarkDownTableColumn {
   content: string
   createTime: string
   title: string
+  [key: string]: any
 }

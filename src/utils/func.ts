@@ -161,7 +161,6 @@ export async function download(
     ...options,
     responseType: 'blob'
   })
-
   if (!isBlobPart(res)) {
     return
   }
@@ -235,4 +234,35 @@ export function stringifyParamValue(isJSON: boolean, isEncode: boolean) {
 
 function encode(value: string, isEncode: boolean = false) {
   return isEncode ? encodeURIComponent(value) : value
+}
+
+/**
+ * n-data-table 组件提供的 downloadCsv 方法可导出 csv 文件，但文件内容中包含乱码
+ * 因此需要修改该方法，使其能正确导出 csv 文件
+ */
+export function downloadCsv(options: {
+  tableData: any[]
+  columns: { title: string; key: string }[]
+  fileName: string
+}) {
+  const data = options.tableData || []
+  const headers = options.columns.map((item: { title: string; key: string }) => item.title)
+  const csvRows = [headers.join(',')]
+  data.forEach((row: any) => {
+    const values = options.columns.map((item: { title: string; key: string }) => {
+      return JSON.stringify(row[item.key])
+    })
+    csvRows.push(values.join(','))
+  })
+  const csvContent = csvRows.join('\n')
+  const bom = new Uint8Array([0xef, 0xbb, 0xbf])
+  const blob = new Blob([bom, csvContent], { type: 'text/csv;charset=utf-8;' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = options.fileName + '.csv'
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  URL.revokeObjectURL(url)
 }
