@@ -165,7 +165,7 @@ export async function download(
   if (!isBlobPart(res)) {
     return
   }
-  const blob = new Blob([res])
+  const blob = new Blob([res.data])
   downloadBlob(blob, fileName)
 }
 
@@ -180,12 +180,10 @@ export function downloadBlob(blob: any, fileName: string) {
 }
 
 export function nativeDownload(url: string, fileName: string = '文件', params: any = {}) {
-  // ch/ff
   const aTag = document.createElement('a')
   aTag.style.display = 'none'
   aTag.download = fileName
   aTag.href = mergeHref(url, stringifyParams(params))
-  // 兼容firefox
   document.body.appendChild(aTag)
   aTag.click()
   document.body.removeChild(aTag)

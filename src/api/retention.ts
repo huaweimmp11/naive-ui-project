@@ -6,6 +6,7 @@
  */
 
 import { service, uploadService } from '@/utils/axios'
+import { download } from '@/utils/func'
 
 /** 获取登录信息 */
 export function getLoginData(data: { username: string; password: string }) {
@@ -72,6 +73,14 @@ export function updateMarkDownToList(data: {
 }) {
   return service({
     url: '/markdown-update',
+    method: 'post',
+    data
+  })
+}
+
+/** 编辑器-MarkDown  导出 */
+export function exportMarkDownById(data: { id: string; filename: string }) {
+  download('/markdown-export', data.filename, {
     method: 'post',
     data
   })

@@ -1,6 +1,8 @@
 import express from 'express'
 import cors from 'cors'
 import os from 'os'
+import fs from 'fs'
+import path from 'path'
 import { createConnection } from 'mysql'
 import bodyparser from 'body-parser'
 
@@ -47,6 +49,19 @@ function queryFunc(sql) {
       }
     })
   })
+}
+
+/** 将数据库查询结果转换为Markdown格式的字符串 */
+function generateMarkdown(data) {
+  if (data.length === 0) {
+    return '# No Data'
+  }
+  let markdown = ''
+  data.forEach((row) => {
+    markdown += row.content // 添加内容
+    markdown += `\n\n---\n\n---\n\n` // 添加分割线
+  })
+  return markdown
 }
 
 // 解决跨域
@@ -161,13 +176,38 @@ app.post('/markdown-update', (req, res) => {
 `,
     (err, rows) => {
       if (err) {
-        console.log('err ', err)
         res.send(send500('更新失败'))
       } else {
         res.send(send200(null, '更新成功'))
       }
     }
   )
+})
+
+// 编辑器-MarkDown 导出
+app.post('/markdown-export', (req, res) => {
+  const { id, filename } = req.body
+  queryFunc(`SELECT * FROM markdown_list WHERE id = ${connection.escape(id)}`).then((rows) => {
+    if (!rows || rows.length === 0) return res.send(send500('获取失败'))
+    const markdownContent = generateMarkdown(rows)
+    const filePath = path.join(os.tmpdir(), `${filename}.md`)
+    fs.writeFile(filePath, markdownContent, 'utf8', (err) => {
+      if (err) {
+        return res.send(send500('文件生成失败'))
+      }
+      res.setHeader('Content-Disposition', `attachment; filename=${filename}.md`)
+      res.setHeader('Content-Type', 'text/markdown')
+      const fileStream = fs.createReadStream(filePath)
+      fileStream.pipe(res)
+      fileStream.on('end', () => {
+        fs.unlink(filePath, (unlinkErr) => {
+          if (unlinkErr) {
+            console.error('临时文件删除失败', unlinkErr)
+          }
+        })
+      })
+    })
+  })
 })
 
 // 编辑器-MarkDown 保存

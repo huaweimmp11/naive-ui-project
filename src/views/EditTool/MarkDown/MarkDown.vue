@@ -16,7 +16,6 @@
         <n-button size="small" @click="updataLock ? updateMd() : saveMd()">{{
           updataLock ? '更新保存' : '新增保存'
         }}</n-button>
-        <n-button size="small" type="primary" @click="exportMd">导出</n-button>
       </div>
       <DataTable
         :data="tableData"
@@ -36,12 +35,16 @@ import { ref, h, onMounted, computed } from 'vue'
 import { MdEditor } from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
 import CommonPage from '@/components/CommonPage.vue'
-import { download } from '@/utils/func'
 import MessageCard from '@/components/MessageCard.vue'
 import { NButton } from 'naive-ui'
 import { useAppStore } from '@/store/modules/app'
 import DataTable from '@/components/DataTable.vue'
-import { getMarkDownList, addMarkDownToList, updateMarkDownToList } from '@/api/retention'
+import {
+  getMarkDownList,
+  addMarkDownToList,
+  updateMarkDownToList,
+  exportMarkDownById
+} from '@/api/retention'
 import type { MarkDownTableColumn } from '@/utils/typeset'
 
 defineOptions({
@@ -87,7 +90,7 @@ const columns = ref([
           NButton,
           {
             type: 'warning',
-            onClick: () => play(row)
+            onClick: () => exportMd(row)
           },
           { default: () => '导出' }
         )
@@ -95,10 +98,6 @@ const columns = ref([
     }
   }
 ])
-
-const play = (row: MarkDownTableColumn) => {
-  window.$message.info(`${row}`)
-}
 
 const edit = (row: MarkDownTableColumn) => {
   updataLock.value = true
@@ -157,7 +156,12 @@ const updateMd = async () => {
   fetchData()
 }
 
-const exportMd = () => {}
+const exportMd = (row: MarkDownTableColumn) => {
+  exportMarkDownById({
+    id: row.id,
+    filename: `${row.title}.md`
+  })
+}
 
 const resetOptions = () => {
   text.value = ''

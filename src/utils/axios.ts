@@ -39,9 +39,20 @@ service.interceptors.response.use(
     const res = response.data
     const { code, message } = res
     window.$loadingBar.finish()
+    // 检查response.data是否是Blob对象
+    if (res instanceof Blob) {
+      // 如果是Blob对象，检查response.status
+      if (response.status === 200) {
+        // 处理成功的Blob响应
+        return response
+      } else {
+        // 处理失败的Blob响应
+        return Promise.reject(new Error(`Blob response error with status ${response.status}`))
+      }
+    }
     if (code !== 200) {
-      window.$message.error(message)
-      return Promise.reject(new Error(message || 'Error'))
+      if (message) window.$message.error(message)
+      return Promise.reject(new Error(message ? message : 'Error'))
     }
     return res
   },
