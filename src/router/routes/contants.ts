@@ -34,5 +34,14 @@ export enum RouteName {
   RichText = 'RichText',
 
   /** 编辑器 - MarkDown */
-  MarkDown = 'MarkDown'
+  MarkDown = 'MarkDown',
+
+  /** 地图 */
+  Map = 'Map',
+
+  /** 地图 - 高德 */
+  Gaode = 'Gaode',
+
+  /** 地图 - 百度 */
+  Baidu = 'Baidu'
 }

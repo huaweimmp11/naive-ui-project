@@ -98,5 +98,33 @@ export const asyncRoutes = [
         }
       }
     ]
+  },
+  {
+    name: RouteName.Map,
+    path: '/map',
+    meta: {
+      title: '地图',
+      icon: 'map-pin'
+    },
+    children: [
+      {
+        name: RouteName.Gaode,
+        path: '/gaode',
+        component: () => import('@/views/Map/Gaode/Gaode.vue'),
+        meta: {
+          title: '高德',
+          icon: 'file-text'
+        }
+      },
+      {
+        name: RouteName.Baidu,
+        path: '/baidu',
+        component: () => import('@/views/Map/Baidu/Baidu.vue'),
+        meta: {
+          title: '百度',
+          icon: 'life-buoy'
+        }
+      }
+    ]
   }
 ]
