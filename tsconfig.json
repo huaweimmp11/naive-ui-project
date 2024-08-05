@@ -12,6 +12,7 @@
     }
   ],
   "compilerOptions": {
+    "lib": ["ES2015", "DOM"],
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "suppressImplicitAnyIndexErrors": true,

@@ -59,16 +59,16 @@ export const asyncRoutes = [
           title: '二维码',
           icon: 'award'
         }
+      },
+      {
+        name: RouteName.VideoManage,
+        path: '/video-manage',
+        component: () => import('@/views/ReferenceTool/VideoManage/VideoManage.vue'),
+        meta: {
+          title: '视频播放',
+          icon: 'video'
+        }
       }
-      // {
-      //   name: RouteName.CardDrag,
-      //   path: '/card-drag',
-      //   component: () => import('@/views/ReferenceTool/CardDrag.vue'),
-      //   meta: {
-      //     title: '卡片拖拽',
-      //     icon: 'droplet'
-      //   }
-      // }
     ]
   },
   {
