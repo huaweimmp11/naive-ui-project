@@ -1,11 +1,3 @@
-<!--------------------------------
- - @Author: Ronnie Zhang
- - @LastEditor: Ronnie Zhang
- - @LastEditTime: 2023/12/16 18:50:10
- - @Email: zclzone@outlook.com
- - Copyright © 2023 Ronnie Zhang(大脸怪) | https://isme.top
- --------------------------------->
-
 <template>
   <n-breadcrumb>
     <n-breadcrumb-item v-if="!breadItems?.length" :clickable="false">
@@ -44,7 +36,7 @@ watch(
   (v) => {
     breadItems.value = findMatchs(permissionStore.permissions, v)
   },
-  { immediate: true },
+  { immediate: true }
 )
 
 function findMatchs(tree, code, parents = []) {
@@ -70,11 +62,11 @@ function handleItemClick(item) {
 
 function getDropOptions(list = []) {
   return list
-    .filter(item => item.show)
-    .map(child => ({
+    .filter((item) => item.show)
+    .map((child) => ({
       label: child.name,
       key: child.code,
-      icon: () => h('i', { class: child.icon }),
+      icon: () => h('i', { class: child.icon })
     }))
 }
 

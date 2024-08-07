@@ -32,10 +32,7 @@
       }"
       @close="props.handleClose"
     >
-      <template #header>
-        <n-skeleton v-if="props.loading" text width="60%" />
-        <template v-else>{{ props.title }}</template>
-      </template>
+      <template #header>{{ props.title }}</template>
       <!-- 可以放置卡片封面 -->
       <template #cover>
         <slot name="card-cover"></slot>

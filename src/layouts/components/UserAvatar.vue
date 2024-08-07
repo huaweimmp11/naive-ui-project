@@ -14,14 +14,17 @@
 import { useRouter } from 'vue-router'
 import { h } from 'vue'
 import { useAuthStore } from '@/store/modules/auth'
-import { usePermissionStore } from '@/store/modules/permission'
+import { useAppStore } from '@/store/modules/app'
 import { useUserStore } from '@/store/modules/user'
-import { reactive, computed } from 'vue'
+import { reactive } from 'vue'
 
 const router = useRouter()
+
 const userStore = useUserStore()
+
 const authStore = useAuthStore()
-const permissionStore = usePermissionStore()
+
+const appStore = useAppStore()
 
 const options = reactive([
   {
@@ -53,6 +56,8 @@ function handleSelect(key) {
             console.error(error)
           }
           authStore.logout()
+          // 停止播放音乐 ap.pause()
+          if (appStore.musicAp) appStore.musicAp.pause()
           window.$message.success('已退出登录')
         },
         onNegativeClick: () => {}

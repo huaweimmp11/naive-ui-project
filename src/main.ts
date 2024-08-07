@@ -8,6 +8,7 @@ import '@/styles/reset.css'
 import 'uno.css'
 import Vue3VideoPlay from 'vue3-video-play'
 import 'vue3-video-play/dist/style.css'
+import '@/assets/css/global.scss'
 
 const app = createApp(App)
 

@@ -11,6 +11,7 @@
       <NormalHeader class="h-60 flex-shrink-0" />
       <slot />
     </article>
+    <Music />
   </div>
 </template>
 
@@ -18,6 +19,7 @@
 import NormalHeader from './normalheader/NormalHeader.vue'
 import NormalSidbar from './normalsidbar/NormalSidbar.vue'
 import { useAppStore } from '@/store/modules/app'
+import Music from '@/views/Music/Music.vue'
 
 defineOptions({
   name: 'NorMal'

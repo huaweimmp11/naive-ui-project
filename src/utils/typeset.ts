@@ -96,3 +96,13 @@ export enum vue3VideoPlayControlBtns {
   /** 全屏按钮 */
   fullScreen = 'fullScreen'
 }
+
+/** 模态框回调状态 */
+export enum ModelStatus {
+  /** 确认 */
+  Confirmed = 'Confirmed',
+  /** 关闭 */
+  Close = 'Close',
+  /** 取消 */
+  Cancel = 'Cancel'
+}

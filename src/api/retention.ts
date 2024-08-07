@@ -93,3 +93,28 @@ export function getVideoManageList() {
     method: 'post'
   })
 }
+
+/** 引用工具-音乐管理  查询 */
+export function getMusicList() {
+  return service({
+    url: '/music-list',
+    method: 'get'
+  })
+}
+
+/** 引用工具-音乐管理  保存 */
+export function addMusicToList(data: {
+  id: string
+  name?: string
+  lineUrl?: string
+  lrc?: string
+  uploadtime: string
+  artist?: string
+  cover?: any
+}) {
+  return service({
+    url: '/music-save',
+    method: 'post',
+    data
+  })
+}

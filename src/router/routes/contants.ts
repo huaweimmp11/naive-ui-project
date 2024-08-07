@@ -39,6 +39,12 @@ export enum RouteName {
   /** 编辑器 - MarkDown */
   MarkDown = 'MarkDown',
 
+  /** 编辑器 - 音乐管理 */
+  MusicList = 'MusicList',
+
+  /** 编辑器 - 音乐管理 - 管理首页 */
+  MusicListMain = 'MusicListMain',
+
   /** 地图 */
   Map = 'Map',
 

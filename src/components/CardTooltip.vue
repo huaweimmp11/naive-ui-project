@@ -7,76 +7,59 @@
 
 <template>
   <div class="card-tooltip">
-    <div class="text-container" @mouseenter="showTooltip" @mouseleave="hideTooltip">
-      <span ref="textRef" class="text">{{ text }}</span>
-      <div v-if="isOverflowed && show" class="tooltip">{{ text }}</div>
-    </div>
+    <n-tooltip trigger="hover">
+      <template #trigger>
+        <div class="text-container">
+          <span ref="textRef" class="text">{{ props.text }}</span>
+        </div>
+      </template>
+      {{ props.text }}
+    </n-tooltip>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref } from 'vue'
 
-const props = defineProps<{
-  text: string
-}>()
+const props = defineProps({
+  text: {
+    type: String,
+    required: true
+  }
+})
 
-const textRef = ref<HTMLSpanElement | null>(null)
-const show = ref(false)
-const isOverflowed = ref(false)
+const textRef = ref<HTMLElement | null>(null)
 
-const checkOverflow = () => {
+const showTooltip = () => {
   if (textRef.value) {
-    isOverflowed.value = textRef.value.scrollWidth > textRef.value.clientWidth
+    textRef.value.style.overflow = 'hidden'
+    textRef.value.style.textOverflow = 'ellipsis'
+    textRef.value.style.whiteSpace = 'nowrap'
   }
 }
 
-const showTooltip = () => {
-  show.value = true
-}
-
 const hideTooltip = () => {
-  show.value = false
+  if (textRef.value) {
+    textRef.value.style.overflow = ''
+    textRef.value.style.textOverflow = ''
+    textRef.value.style.whiteSpace = ''
+  }
 }
-
-onMounted(() => {
-  checkOverflow()
-  window.addEventListener('resize', checkOverflow)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('resize', checkOverflow)
-})
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .card-tooltip {
-  position: relative;
   display: inline-block;
 }
 
 .text-container {
-  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .text {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.tooltip {
-  visibility: visible;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 5px;
-  padding: 5px;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0.9;
+  display: inline-block;
 }
 </style>

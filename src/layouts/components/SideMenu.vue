@@ -38,8 +38,9 @@ const menus = computed(() => {
 const transformRoutesToMenuOptions = (routes) => {
   return routes.map((route) => {
     return {
-      label: route.meta?.title || route.name,
+      label: route.meta?.title,
       key: route.path,
+      name: route.name,
       icon: route.meta?.icon ? () => h(SvgIcon, { name: route.meta.icon }) : null,
       children: route.children ? transformRoutesToMenuOptions(route.children) : undefined
     }
@@ -56,7 +57,9 @@ const renderLabel = ({ label }) => {
 
 const handleMenuSelect = (key, item) => {
   activeKey.value = key
-  router.push(key)
+  router.push({
+    name: item.name
+  })
 }
 </script>
 

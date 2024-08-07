@@ -35,7 +35,7 @@ export const asyncRoutes = [
     children: [
       {
         name: RouteName.IconList,
-        path: '/icon-list',
+        path: 'icon-list',
         component: () => import('@/views/ReferenceTool/IconList.vue'),
         meta: {
           title: '图标展示',
@@ -44,7 +44,7 @@ export const asyncRoutes = [
       },
       {
         name: RouteName.ImageUpload,
-        path: '/image-upload',
+        path: 'image-upload',
         component: () => import('@/views/ReferenceTool/ImageUpload.vue'),
         meta: {
           title: '图片上传',
@@ -53,7 +53,7 @@ export const asyncRoutes = [
       },
       {
         name: RouteName.TwoDimensionalCode,
-        path: '/two-dimensional-code',
+        path: 'two-dimensional-code',
         component: () => import('@/views/ReferenceTool/TwoDimensionalCode.vue'),
         meta: {
           title: '二维码',
@@ -62,7 +62,7 @@ export const asyncRoutes = [
       },
       {
         name: RouteName.VideoManage,
-        path: '/video-manage',
+        path: 'video-manage',
         component: () => import('@/views/ReferenceTool/VideoManage/VideoManage.vue'),
         meta: {
           title: '视频播放',
@@ -81,7 +81,7 @@ export const asyncRoutes = [
     children: [
       {
         name: RouteName.RichText,
-        path: '/rich-text',
+        path: 'rich-text',
         component: () => import('@/views/EditTool/RichText/RichText.vue'),
         meta: {
           title: '富文本',
@@ -90,7 +90,7 @@ export const asyncRoutes = [
       },
       {
         name: RouteName.MarkDown,
-        path: '/mark-down',
+        path: 'mark-down',
         component: () => import('@/views/EditTool/MarkDown/MarkDown.vue'),
         meta: {
           title: 'MarkDown',
@@ -109,7 +109,7 @@ export const asyncRoutes = [
     children: [
       {
         name: RouteName.Gaode,
-        path: '/gaode',
+        path: 'gaode',
         component: () => import('@/views/Map/Gaode/Gaode.vue'),
         meta: {
           title: '高德',
@@ -118,11 +118,30 @@ export const asyncRoutes = [
       },
       {
         name: RouteName.Baidu,
-        path: '/baidu',
+        path: 'baidu',
         component: () => import('@/views/Map/Baidu/Baidu.vue'),
         meta: {
           title: '百度',
           icon: 'life-buoy'
+        }
+      }
+    ]
+  },
+  {
+    name: RouteName.MusicList,
+    path: '/music-list',
+    meta: {
+      title: '音乐管理',
+      icon: 'music'
+    },
+    children: [
+      {
+        name: RouteName.MusicListMain,
+        path: 'main',
+        component: () => import('@/views/Music/MusicList/MusicListMain/MusicListMain.vue'),
+        meta: {
+          title: '管理首页',
+          icon: 'underline'
         }
       }
     ]

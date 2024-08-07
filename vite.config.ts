@@ -1,30 +1,38 @@
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig, loadEnv, type ConfigEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { wrapperEnv } from './build/wrapperEnv'
 import { createProxy } from './build/devserver'
 import { fileURLToPath } from 'url'
+// @ts-ignore
 import Unocss from 'unocss/vite'
 // @ts-ignore
 import { pluginIcons, pluginPagePathes } from './build/plugin-isme'
+// import postcssPxToViewport from 'postcss-px-to-viewport'
 
-// https://vitejs.dev/config/
-// export default defineConfig({
-//   plugins: [vue(), vueJsx()],
-//   resolve: {
-//     alias: {
-//       '@': fileURLToPath(new URL('./src', import.meta.url))
-//     }
-//   }
-// })
-
-export default defineConfig(({ command, mode }) => {
+export default defineConfig(({ command, mode }: ConfigEnv) => {
   const env = loadEnv(mode, process.cwd())
   const viteEnv = wrapperEnv(env)
   // 这样就可以拿到定义好的环境变量了，也可以使用 import.meta.env.xxx 这种方式进行访问
   const { VITE_PUBLIC_PATH, VITE_PORT, VITE_PROXY } = viteEnv
   return {
     plugins: [vue(), vueJsx(), Unocss(), pluginIcons(), pluginPagePathes()],
+    /** postcss-px-to-viewport 自动将 CSS 中的 px 单位转换为 vw 单位，从而实现响应式设计 */
+    css: {
+      // postcss: {
+      //   plugins: [
+      //     postcssPxToViewport({
+      //       viewportWidth: 1920, // 设计稿宽度
+      //       viewportHeight: 1080, // 可选，通常不需要设置
+      //       unitPrecision: 5, // 转换后的精度，即小数点位数
+      //       viewportUnit: 'vw', // 指定需要转换成的视口单位，默认是 vw
+      //       selectorBlackList: ['.ignore', '.hairlines'], // 指定不需要转换的类
+      //       minPixelValue: 1, // 小于或等于 1px 不转换为视口单位
+      //       mediaQuery: false // 允许在媒体查询中转换 px
+      //     })
+      //   ]
+      // }
+    },
     base: VITE_PUBLIC_PATH || '/',
     resolve: {
       alias: {

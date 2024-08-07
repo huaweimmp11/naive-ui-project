@@ -5,12 +5,14 @@ import fs from 'fs'
 import path from 'path'
 import { createConnection } from 'mysql'
 import bodyparser from 'body-parser'
+import MusicRouter from './src/http/music.js'
 
 const app = express()
 
 app.use(bodyparser.json({ limit: '1000mb' }))
 app.use(bodyparser.urlencoded({ limit: '1000mb', extended: true }))
 app.use(cors())
+app.use(MusicRouter)
 
 const port = 1025
 
@@ -149,11 +151,7 @@ app.post('/image-upload', async (req, res) => {
       }
     )
   } catch (error) {
-    res.send({
-      code: 500,
-      data: null,
-      message: '上传失败'
-    })
+    res.send(send500('上传失败'))
   }
 })
 

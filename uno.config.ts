@@ -46,8 +46,13 @@ export default defineConfig({
       'card-shadow',
       { 'box-shadow': '0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017' }
     ],
-    [/^pt-(\d+)$/, ([, d]) => ({ 'padding-top': `${d}px` })],
-    [/^pb-(\d+)$/, ([, d]) => ({ 'padding-bottom': `${d}px` })]
+    // 定义 font-size 规则
+    [
+      /^font-(\d+)$/,
+      ([, size]: [string, number | string]) => {
+        return { 'font-size': `${size}px` }
+      }
+    ]
   ],
   theme: {
     colors: {

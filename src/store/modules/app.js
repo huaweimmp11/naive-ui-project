@@ -9,7 +9,8 @@ export const useAppStore = defineStore('app', {
     isDark: useDark(),
     layout: defaultLayout,
     primaryColor: defaultPrimaryColor,
-    naiveThemeOverrides
+    naiveThemeOverrides,
+    musicAp: null
   }),
   actions: {
     switchCollapsed() {
@@ -39,6 +40,9 @@ export const useAppStore = defineStore('app', {
         primaryColorSuppl: colors[4],
         primaryColorPressed: colors[6]
       })
+    },
+    setMusicAp(ap) {
+      this.musicAp = ap
     }
   },
   persist: {
