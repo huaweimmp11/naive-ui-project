@@ -7,6 +7,12 @@
 
 import { service } from '@/utils/axios'
 import type { AlbumListParams, ArtistListParams, TopPlayListParams } from '../utils/musicTypes'
+import type { AxiosResponse } from 'axios'
+
+interface MyAxiosResponse<T = any> extends AxiosResponse<T> {
+  code?: number
+  message?: string
+}
 
 /**
  * 获取指定歌手的热门 50 首歌曲
@@ -19,7 +25,7 @@ export const artistTopSong = (id: string) => {
     params: {
       id
     }
-  })
+  }) as unknown as MyAxiosResponse
 }
 
 /**
@@ -32,7 +38,7 @@ export const artistList = (params: ArtistListParams) => {
   return service({
     url: '/artist-list',
     params
-  })
+  }) as unknown as MyAxiosResponse
 }
 
 /**
@@ -42,7 +48,7 @@ export const topAlbumSearch = (params: AlbumListParams) => {
   return service({
     url: '/top-album',
     params
-  })
+  }) as unknown as MyAxiosResponse
 }
 
 /**
@@ -52,5 +58,5 @@ export const topPlayListSearch = (params: TopPlayListParams) => {
   return service({
     url: '/top-playlist',
     params
-  })
+  }) as unknown as MyAxiosResponse
 }

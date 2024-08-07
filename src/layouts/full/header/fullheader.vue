@@ -7,7 +7,7 @@
     <div class="ml-auto flex flex-shrink-0 items-center px-12 text-18">
       <ToggleTheme />
 
-      <Fullscreen />
+      <FullScreen />
 
       <i
         class="i-fe:github mr-16 cursor-pointer"
@@ -27,8 +27,11 @@
 
 <script setup>
 import ThemeSetting from '@/components/ThemeSetting.vue'
-import { BreadCrumb, Fullscreen, MenuCollapse, UserAvatar } from '@/layouts/components'
-import AppCard from '@/layouts/components/AppCard.vue'
+import BreadCrumb from '@/layouts/components/BreadCrumb.vue'
+import FullScreen from '@/layouts/components/FullScreen.vue'
+import MenuCollapse from '@/layouts/components/MenuCollapse.vue'
+import UserAvatar from '@/layouts/components/UserAvatar.vue'
+import AppCard from '@/components/AppCard.vue'
 
 defineOptions({
   name: 'FullHeader'

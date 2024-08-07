@@ -12,6 +12,9 @@
     }
   ],
   "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
     "lib": ["ES2015", "DOM"],
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
