@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url'
 import Unocss from 'unocss/vite'
 // @ts-ignore
 import { pluginIcons, pluginPagePathes } from './build/plugin-isme'
+import path from 'path'
 // import postcssPxToViewport from 'postcss-px-to-viewport'
 
 export default defineConfig(({ command, mode }: ConfigEnv) => {
@@ -36,7 +37,15 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
     base: VITE_PUBLIC_PATH || '/',
     resolve: {
       alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url))
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+        'vue3-video-play': path.resolve(
+          __dirname,
+          'node_modules/vue3-video-play/dist/index.umd.js'
+        ),
+        'vue3-video-play-css': path.resolve(
+          __dirname,
+          'node_modules/vue3-video-play/dist/style.css'
+        )
       }
     },
     server: {
