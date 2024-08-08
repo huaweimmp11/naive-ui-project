@@ -14,8 +14,14 @@
       <ToggleWaterMark class="mr-8" />
       <ToggleTheme />
       <FullScreen />
-      <i class="i-fe:github mr-16 cursor-pointer" @click="handleLinkClick('')" />
-      <i class="i-me:gitee mr-16 cursor-pointer" @click="handleLinkClick('')" />
+      <i
+        class="i-fe:github mr-16 cursor-pointer"
+        @click="handleLinkClick('https://github.com/huaweimmp11/naive-ui-project')"
+      />
+      <i
+        class="i-me:gitee mr-16 cursor-pointer"
+        @click="handleLinkClick('https://gitee.com/s02s02/naive-ui-project')"
+      />
       <ThemeSetting class="mr-16" />
       <UserAvatar />
     </div>
@@ -27,7 +33,10 @@ import ToggleTheme from '@/components/ToggleTheme.vue'
 import AppCard from '@/components/AppCard.vue'
 import ThemeSetting from '@/components/ThemeSetting.vue'
 import ToggleWaterMark from '@/components/ToggleWaterMark.vue'
-import { AppTab, FullScreen, MenuCollapse, UserAvatar } from '@/layouts/components'
+import AppTab from '@/layouts/components/tab/AppTab.vue'
+import FullScreen from '@/layouts/components/FullScreen.vue'
+import MenuCollapse from '@/layouts/components/MenuCollapse.vue'
+import UserAvatar from '@/layouts/components/UserAvatar.vue'
 
 defineOptions({
   name: 'NormalHeader'

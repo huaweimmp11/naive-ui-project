@@ -32,6 +32,7 @@ import FullScreen from '@/layouts/components/FullScreen.vue'
 import MenuCollapse from '@/layouts/components/MenuCollapse.vue'
 import UserAvatar from '@/layouts/components/UserAvatar.vue'
 import AppCard from '@/components/AppCard.vue'
+import ToggleTheme from '@/components/ToggleTheme.vue'
 
 defineOptions({
   name: 'FullHeader'
