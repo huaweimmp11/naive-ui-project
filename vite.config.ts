@@ -18,6 +18,13 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
   const { VITE_PUBLIC_PATH, VITE_PORT, VITE_PROXY } = viteEnv
   return {
     plugins: [vue(), vueJsx(), Unocss(), pluginIcons(), pluginPagePathes()],
+    build: {
+      rollupOptions: {
+        output: {
+          assetFileNames: 'assets/[name].[ext]'
+        }
+      }
+    },
     /** postcss-px-to-viewport 自动将 CSS 中的 px 单位转换为 vw 单位，从而实现响应式设计 */
     css: {
       // postcss: {
