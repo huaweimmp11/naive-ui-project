@@ -7,7 +7,7 @@
 
 <template>
   <MessageCard :height="props.height" :loading="props.loading" :title="props.title" class="mb-10">
-    <template #header-extra>
+    <template #header-extra v-if="props.toggleButton">
       <div class="flex gap-8">
         <n-button
           quaternary
@@ -44,8 +44,12 @@ const props = defineProps({
     default: false
   },
   height: {
-    type: Number,
-    default: 240
+    type: [Number, String],
+    default: 'auto'
+  },
+  toggleButton: {
+    type: Boolean,
+    default: true
   }
 })
 

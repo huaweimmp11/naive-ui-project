@@ -60,3 +60,25 @@ export const topPlayListSearch = (params: TopPlayListParams) => {
     params
   }) as unknown as MyAxiosResponse
 }
+
+/**
+ * 获取所有榜单
+ */
+export const topListSearch = () => {
+  return service({
+    url: '/toplist'
+  }) as unknown as MyAxiosResponse
+}
+
+/**
+ * 根据榜单ID查询曲目
+ */
+export const topListSearchById = (id: string) => {
+  return service({
+    url: '/playlist-detail',
+    params: {
+      id,
+      s: 8
+    }
+  }) as unknown as MyAxiosResponse
+}

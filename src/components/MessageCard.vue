@@ -10,7 +10,7 @@
     class="message-card auto-bg"
     :style="{
       width: `100%`,
-      height: `${props.height}px`
+      height: isNumber(props.height) ? `${props.height}px` : 'auto'
     }"
   >
     <n-card
@@ -38,7 +38,12 @@
         <slot name="card-cover"></slot>
       </template>
       <!-- 卡片主体内容 -->
-      <n-skeleton v-if="props.loading" text width="100%" />
+      <n-space v-if="props.loading" vertical>
+        <n-skeleton height="40px" width="33%" />
+        <n-skeleton height="40px" width="66%" :sharp="false" />
+        <n-skeleton height="40px" round />
+        <n-skeleton height="40px" circle />
+      </n-space>
       <slot v-else></slot>
       <!-- 卡片副标题 -->
       <template #header-extra>
@@ -81,8 +86,8 @@ const props = defineProps({
     default: 300
   },
   height: {
-    type: Number,
-    default: 240
+    type: [Number, String],
+    default: 'auto'
   },
   /** 卡片边框 */
   bordered: {
@@ -120,6 +125,10 @@ const props = defineProps({
 })
 
 const nCardRef = ref(null)
+
+const isNumber = (value: number | string) => {
+  return typeof value === 'number'
+}
 </script>
 
 <style lang="scss" scoped>

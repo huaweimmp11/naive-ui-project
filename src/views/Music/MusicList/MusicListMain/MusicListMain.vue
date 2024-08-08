@@ -12,6 +12,7 @@
       v-for="item in arrageProps"
       :key="item.title"
       :title="item.title"
+      :loading="loading"
       :tag="item.tag"
       :height="item.title === '热门推荐' ? 300 : 420"
       @tag-click="handleTagClick"
@@ -23,6 +24,7 @@
         <NewDiscList :data="newDiscList" />
       </template>
     </ArrangeCard>
+    <MusicRanking></MusicRanking>
     <UseModel ref="useModel"></UseModel>
   </CommonPage>
 </template>
@@ -32,6 +34,7 @@ import { onMounted, ref } from 'vue'
 import CommonPage from '@/components/CommonPage.vue'
 import ArrangeCard from '../../MusicComponents/ArrangeCard/ArrangeCard.vue'
 import UseModel from '@/components/UseModel/UseModel.vue'
+import MusicRanking from '../MusicRanking/MusicRanking.vue'
 import { topAlbumSearch, topPlayListSearch } from '@/api/music'
 import {
   AlbumArea,
@@ -58,6 +61,8 @@ const arrageProps = ref([
   }
 ])
 
+const loading = ref(false)
+
 const useModel = ref<InstanceType<typeof UseModel>>()
 
 const newDiscList = ref<MusicListNewDiscList[]>([])
@@ -69,6 +74,7 @@ const areaType = ref(AlbumArea.ALL)
 const topType = ref<string>('全部')
 
 const getTopAlbum = async () => {
+  loading.value = true
   const { data } = await topAlbumSearch({
     type: AlbumType.new,
     area: areaType.value,
@@ -77,9 +83,11 @@ const getTopAlbum = async () => {
     month: dayjs().month() + 1
   })
   newDiscList.value = data.slice(0, 12)
+  loading.value = false
 }
 
 const getTopPlayList = async () => {
+  loading.value = true
   const { data } = await topPlayListSearch({
     cat: topType.value,
     order: 'hot',
@@ -87,6 +95,7 @@ const getTopPlayList = async () => {
     offset: 0
   })
   topPlayList.value = data
+  loading.value = false
 }
 
 const handleLoginMusic = () => {

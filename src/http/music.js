@@ -9,7 +9,8 @@ import express from 'express'
 const router = express.Router()
 import * as NeteaseCloudMusicApi from 'NeteaseCloudMusicApi'
 
-const { artist_top_song, artist_list, top_album, top_playlist } = NeteaseCloudMusicApi.default
+const { artist_top_song, artist_list, top_album, top_playlist, toplist, playlist_detail } =
+  NeteaseCloudMusicApi.default
 
 const send500 = (message) => {
   return {
@@ -57,6 +58,21 @@ router.get('/top-playlist', async (req, res) => {
   const { body } = response
   if (body.code !== 200) return res.send(send500('获取失败'))
   res.send(send200(body.playlists))
+})
+
+router.get('/toplist', async (req, res) => {
+  const response = await toplist()
+  const { body } = response
+  if (body.code !== 200) return res.send(send500('获取失败'))
+  res.send(send200(body.list))
+})
+
+router.get('/playlist-detail', async (req, res) => {
+  const { id, s } = req.query
+  const response = await playlist_detail({ id, s })
+  const { body } = response
+  if (body.code !== 200) return res.send(send500('获取失败'))
+  res.send(send200(body.playlist.tracks.slice(0, 6)))
 })
 
 export default router

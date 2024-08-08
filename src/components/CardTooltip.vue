@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps({
   text: {
@@ -45,6 +45,14 @@ const hideTooltip = () => {
     textRef.value.style.whiteSpace = ''
   }
 }
+
+onMounted(() => {
+  showTooltip()
+})
+
+onUnmounted(() => {
+  hideTooltip()
+})
 </script>
 
 <style scoped>

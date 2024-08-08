@@ -49,8 +49,15 @@ export default defineConfig({
     // 定义 font-size 规则
     [
       /^font-(\d+)$/,
-      ([, size]: [string, number | string]) => {
+      ([, size]) => {
         return { 'font-size': `${size}px` }
+      }
+    ],
+    // 定义 color 规则
+    [
+      /^color-([a-fA-F0-9]{3}|[a-fA-F0-9]{6})$/,
+      ([, color]) => {
+        return { color: `#${color}` }
       }
     ]
   ],
