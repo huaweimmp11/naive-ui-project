@@ -11,7 +11,7 @@
       class="m-auto max-w-700 min-w-345 f-c-c rounded-8 bg-opacity-20 bg-cover p-12 card-shadow auto-bg"
     >
       <div class="hidden w-380 px-20 py-35 md:block">
-        <img :src="bannerSrc" class="w-full" alt="login_banner" />
+        <img :src="loginBanner" class="w-full" alt="login_banner" />
       </div>
       <div class="w-320 flex-col px-20 py-32 pt-0">
         <h2 class="f-c-c text-24 text-#6a6a6a font-normal">
@@ -63,10 +63,12 @@
 
 <script setup lang="ts">
 import Vcode from 'vue3-puzzle-vcode'
-import { computed, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { RouteName } from '@/router/routes/contants'
 import { getLoginData } from '@/api/retention'
+import loginBanner from '@/assets/images/login_banner.webp'
+import loginSrc from '@/assets/images/logo.png'
 
 defineOptions({
   name: 'LoginPage'
@@ -85,14 +87,6 @@ const isShow = ref(false)
 const loginInfo = ref({
   username: '',
   password: ''
-})
-
-const loginSrc = computed(() => {
-  return `/src/assets/images/logo.png`
-})
-
-const bannerSrc = computed(() => {
-  return `/src/assets/images/login_banner.webp`
 })
 
 function onSuccess() {
