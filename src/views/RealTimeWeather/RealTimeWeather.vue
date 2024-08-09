@@ -461,6 +461,8 @@ const openCityEdit = () => {
 
 const closeCityEdit = () => {
   state.showEdit = false
+  localStorage.setItem('city', state.querySearchCity)
+  localStorage.setItem('location', state.location)
   searchInit()
 }
 
