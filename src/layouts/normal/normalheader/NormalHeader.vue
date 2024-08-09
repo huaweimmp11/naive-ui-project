@@ -12,6 +12,7 @@
     <span class="mx-6 opacity-20">|</span>
     <div class="flex flex-shrink-0 items-center px-12 text-18">
       <ToggleWaterMark class="mr-8" />
+      <Weather class="mr-8 ml-8" />
       <ToggleTheme />
       <FullScreen />
       <i
@@ -37,6 +38,7 @@ import AppTab from '@/layouts/components/tab/AppTab.vue'
 import FullScreen from '@/layouts/components/FullScreen.vue'
 import MenuCollapse from '@/layouts/components/MenuCollapse.vue'
 import UserAvatar from '@/layouts/components/UserAvatar.vue'
+import Weather from '@/layouts/components/Weather.vue'
 
 defineOptions({
   name: 'NormalHeader'

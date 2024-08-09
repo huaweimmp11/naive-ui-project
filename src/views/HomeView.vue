@@ -7,7 +7,7 @@
 <template>
   <AppPage show-footer>
     <div class="flex">
-      <MessageCard class="min-w-200 w-30%" title="Welcome" :loading="cardLoading">
+      <MessageCard class="min-w-200 w-30%" title="Welcome">
         <template #header-extra>
           <n-button
             class="text-14 text-primary text-highlight hover:opacity-80"
@@ -32,7 +32,7 @@
             isme
           </a>
         </template>
-        <div class="mt-12 flex items-end justify-between">
+        <div class="mt-12 flex items-center justify-between">
           <QrCode />
           <n-button
             type="primary"
@@ -47,23 +47,8 @@
       </MessageCard>
     </div>
     <div class="flex mt-12">
-      <MessageCard class="min-w-200 w-50%" :height="260" title="Welcome" :loading="cardLoading">
-        <template #header-extra>
-          <n-button
-            class="text-14 text-primary text-highlight hover:opacity-80"
-            size="tiny"
-            quaternary
-          >
-            <i class="i-fe:refresh-ccw cursor-pointer" @click="refreshMotto" />
-          </n-button>
-        </template>
-        <p class="mt-28 text-14 opacity-60">{{ motto.content }}</p>
-        <p class="mt-12 text-right text-12 opacity-40">—— {{ motto.auth }}</p>
-        <template #card-action>
-          <p class="text-12 opacity-60 text-center">{{ currentDate }}</p>
-        </template>
-      </MessageCard>
-      <MessageCard class="ml-12 w-50%" title="🛠️ 技术栈" :height="460" segmented>
+      <MessageCard class="min-w-200 w-50%" :height="260" title="天气"> </MessageCard>
+      <MessageCard class="ml-12 w-50%" title="🛠️ 技术栈" :height="460">
         <VChart :option="skillOption" autoresize />
       </MessageCard>
     </div>
@@ -119,9 +104,7 @@ const currentDate = ref(dayjs().format('YYYY-MM-DD HH:mm:ss'))
 
 const timer = ref(null as any)
 
-const cardLoading = ref(false)
-
-const skillOption = ref({
+const skillOption = {
   tooltip: {
     trigger: 'item',
     formatter({ name, value }: { name: string; value: number }) {
@@ -165,12 +148,10 @@ const skillOption = ref({
       ]
     }
   ]
-})
+}
 
 async function refreshMotto() {
-  cardLoading.value = true
   const { code, data } = await getHomeMottoMsg()
-  cardLoading.value = false
   if (code !== 200) return
   const index = Math.floor(Math.random() * data.length)
   motto.value = {
@@ -188,4 +169,9 @@ onMounted(() => {
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+i {
+  width: 14px;
+  height: 14px;
+}
+</style>
