@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import type { DataTableInst } from 'naive-ui'
 
 defineOptions({
@@ -81,7 +81,16 @@ const props = defineProps({
   }
 })
 
-const refColumns = ref(props.columns)
+const refColumns = computed(() => {
+  return props.columns?.map((item: any) => {
+    return {
+      ...item,
+      ellipsis: {
+        tooltip: true
+      }
+    }
+  })
+})
 
 const tableRef = ref<DataTableInst>()
 

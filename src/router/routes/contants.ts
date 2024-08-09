@@ -52,5 +52,8 @@ export enum RouteName {
   Gaode = 'Gaode',
 
   /** 地图 - 百度 */
-  Baidu = 'Baidu'
+  Baidu = 'Baidu',
+
+  /** 实时天气 */
+  RealTimeWeather = 'RealTimeWeather'
 }

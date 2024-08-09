@@ -145,5 +145,14 @@ export const asyncRoutes = [
         }
       }
     ]
+  },
+  {
+    name: RouteName.RealTimeWeather,
+    path: '/real-time-weather',
+    meta: {
+      title: '实时天气',
+      icon: 'cloud'
+    },
+    component: () => import('@/views/RealTimeWeather/RealTimeWeather.vue')
   }
 ]
