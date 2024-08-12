@@ -23,6 +23,13 @@ export function getLoginData(data: { username: string; password: string }) {
   }) as unknown as MyAxiosResponse
 }
 
+export function getSysUsers() {
+  return service({
+    url: '/user-list',
+    method: 'get'
+  }) as unknown as MyAxiosResponse
+}
+
 /** HomeView 页面刷新 卡片格言 */
 export function getHomeMottoMsg() {
   return service({

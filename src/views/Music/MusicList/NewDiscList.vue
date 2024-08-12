@@ -7,7 +7,7 @@
 
 <template>
   <div class="container flex flex-wrap gap-6 je" :style="cssVars">
-    <div class="container-item flex jb" v-for="item in data" :key="item.id">
+    <div class="container-item flex jb" v-for="item in props.data" :key="item.id">
       <div class="card">
         <div class="card1 flex je">
           <n-image width="100" :src="item.picUrl" preview-disabled />

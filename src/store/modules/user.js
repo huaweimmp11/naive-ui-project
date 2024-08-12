@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    userInfo: null
+    userInfo: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : {}
   }),
   getters: {
     userId() {
@@ -27,6 +27,7 @@ export const useUserStore = defineStore('user', {
   actions: {
     setUser(user) {
       this.userInfo = user
+      localStorage.setItem('userInfo', JSON.stringify(user))
     },
     resetUser() {
       this.$reset()

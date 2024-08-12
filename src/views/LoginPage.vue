@@ -14,10 +14,6 @@
         <img :src="loginBanner" class="w-full" alt="login_banner" />
       </div>
       <div class="w-320 flex-col px-20 py-32 pt-0">
-        <!-- <h2 class="f-c-c text-24 text-#6a6a6a font-normal">
-          <img :src="loginSrc" class="mr-12 h-50" />
-          {{ title }}
-        </h2> -->
         <div class="trans flex justify-center items-center">
           <div class="brick one"></div>
           <div class="tooltip-mario-container">
@@ -50,16 +46,26 @@
             <i class="i-fe:lock mr-12 opacity-20" />
           </template>
         </n-input>
-        <div class="mt-40 flex items-center">
+        <div class="mt-40 flex gap-10 items-center">
           <n-button
-            class="ml-32 h-40 flex-1 rounded-5 text-16"
+            ghost
+            color="#8a2be2"
+            class="h-40 flex-1 rounded-5 text-16"
             type="info"
-            secondary
-            @click="handleLoginOnce"
+            @click="handleLoginOnce1"
           >
-            一键
+            用户一
           </n-button>
-          <n-button class="ml-32 h-40 flex-1 rounded-5 text-16" type="primary" @click="handleLogin">
+          <n-button
+            ghost
+            color="#ff69b4"
+            class="h-40 flex-1 rounded-5 text-16"
+            type="info"
+            @click="handleLoginOnce2"
+          >
+            用户二
+          </n-button>
+          <n-button class="h-40 flex-1 rounded-5 text-16" type="primary" @click="handleLogin">
             登录
           </n-button>
         </div>
@@ -74,9 +80,9 @@ import Vcode from 'vue3-puzzle-vcode'
 import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { RouteName } from '@/router/routes/contants'
+import { useUserStore } from '@/store/modules/user'
 import { getLoginData } from '@/api/retention'
 import loginBanner from '@/assets/images/login_banner.webp'
-import loginSrc from '@/assets/images/logo.png'
 
 defineOptions({
   name: 'LoginPage'
@@ -97,9 +103,12 @@ const loginInfo = ref({
   password: ''
 })
 
+const userStore = useUserStore()
+
 function onSuccess() {
   isShow.value = false
   window.$message.success('登录成功')
+  userStore.setUser(loginInfo.value)
   router.push({
     name: RouteName.HomeView
   })
@@ -112,8 +121,21 @@ function onClose() {
 
 onMounted(() => {})
 
-async function handleLoginOnce() {
-  const { code } = await getLoginData({ username: 'admin', password: '123456' })
+async function handleLoginOnce1() {
+  loginInfo.value.username = 'admin'
+  loginInfo.value.password = '123456'
+  const { code } = await getLoginData(loginInfo.value)
+  if (code !== 200) {
+    window.$message.error('登录失败')
+    return false
+  }
+  onSuccess()
+}
+
+async function handleLoginOnce2() {
+  loginInfo.value.username = 'ad'
+  loginInfo.value.password = '123456'
+  const { code } = await getLoginData(loginInfo.value)
   if (code !== 200) {
     window.$message.error('登录失败')
     return false

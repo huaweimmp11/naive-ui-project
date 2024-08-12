@@ -7,7 +7,7 @@
 -->
 
 <template>
-  <div id="tp-weather-widget">123</div>
+  <div id="tp-weather-widget"></div>
 </template>
 
 <script lang="ts" setup>

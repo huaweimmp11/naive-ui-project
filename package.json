@@ -17,6 +17,7 @@
     "@arco-design/color": "^0.4.0",
     "@types/axios": "^0.14.0",
     "@types/glob": "^8.1.0",
+    "@v3e/vue3-draggable-resizable": "^1.0.0",
     "@vueuse/core": "^10.11.0",
     "NeteaseCloudMusicApi": "^4.22.0",
     "aplayer": "^1.10.1",

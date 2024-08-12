@@ -12,6 +12,8 @@
       <slot />
     </article>
     <Music />
+    <ImBox @mousedown="startClick" @mouseup="endClick" @click.prevent="openImBoX" />
+    <ImBoxDialog ref="imBoxDialog" />
   </div>
 </template>
 
@@ -20,12 +22,34 @@ import NormalHeader from './normalheader/NormalHeader.vue'
 import NormalSidbar from './normalsidbar/NormalSidbar.vue'
 import { useAppStore } from '@/store/modules/app'
 import Music from '@/views/Music/Music.vue'
+import ImBox from '@/views/ImBox/ImBox.vue'
+import ImBoxDialog from '@/views/ImBox/ImBoxDialog/ImBoxDialog.vue'
+import { ref } from 'vue'
 
 defineOptions({
   name: 'NorMal'
 })
 
 const appStore = useAppStore()
+
+const imBoxDialog = ref<any>(null)
+
+const isLongPress = ref(false)
+
+const startClick = () => {
+  isLongPress.value = false
+  setTimeout(() => {
+    isLongPress.value = true
+  }, 200)
+}
+
+const endClick = () => {
+  if (isLongPress.value) return
+}
+
+const openImBoX = () => {
+  if (!isLongPress.value) imBoxDialog.value.show()
+}
 </script>
 
 <style>

@@ -17,6 +17,9 @@ importers:
       '@types/glob':
         specifier: ^8.1.0
         version: 8.1.0
+      '@v3e/vue3-draggable-resizable':
+        specifier: ^1.0.0
+        version: 1.0.0
       '@vueuse/core':
         specifier: ^10.11.0
         version: 10.11.0(@vue/composition-api@1.7.2(vue@3.4.36(typescript@5.2.2)))(vue@3.4.36(typescript@5.2.2))
@@ -1395,6 +1398,9 @@ packages:
     resolution: {integrity: sha512-hP/sL9rq1DvVCbSSx05m+bwYqen1nHm9tW6elKFkfV7X5jBUywu24WRq551NZI33KmgHA525ApX++DSWye+0uw==}
     peerDependencies:
       vite: ^2.9.0 || ^3.0.0-0 || ^4.0.0 || ^5.0.0-0
+
+  '@v3e/vue3-draggable-resizable@1.0.0':
+    resolution: {integrity: sha512-/A6p8aQfnX29yTeFBKioPbb3AgDt5moYNG9P2u9JFN2nHrV83ARKrjrlPni37OTQBU/gD6irhbqmcQtHT7eDeQ==}
 
   '@vavt/util@1.7.0':
     resolution: {integrity: sha512-EAwplP/2Lm79KCFj5umtU/HKgFUi8Ec6a1clK2Za4MErkAkY8+mdOSnAFJdltceWzmnauZrEc+By+u0ZvX6u6g==}
@@ -7517,6 +7523,8 @@ snapshots:
     transitivePeerDependencies:
       - rollup
       - supports-color
+
+  '@v3e/vue3-draggable-resizable@1.0.0': {}
 
   '@vavt/util@1.7.0': {}
 

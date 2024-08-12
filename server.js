@@ -93,6 +93,13 @@ app.post(`/login`, (req, res) => {
   })
 })
 
+app.get(`/user-list`, (req, res) => {
+  connection.query(`SELECT * FROM user `, (err, rows) => {
+    if (rows.length <= 0) return res.send(send500('无用户'))
+    return res.send(send200(rows))
+  })
+})
+
 // HomeView 获取卡片信息
 app.get('/getHomeMottoMsg', (req, res) => {
   // 从 lifemotto 表中随机取20条数据
