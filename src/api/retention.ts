@@ -131,3 +131,12 @@ export function addMusicToList(data: {
     data
   }) as unknown as MyAxiosResponse
 }
+
+/** 即时通讯列表 */
+export function getImList(data?: { from: string; to: string }) {
+  return service({
+    url: '/user-message-list',
+    method: 'post',
+    data
+  }) as unknown as MyAxiosResponse
+}

@@ -106,3 +106,15 @@ export enum ModelStatus {
   /** 取消 */
   Cancel = 'Cancel'
 }
+
+export type ImListData = {
+  /** 接收人 */
+  to: string
+  /** 发送人 */
+  from: string
+  id: string
+  /** 发送时间 */
+  time: string
+  /** 发送内容 */
+  content: string
+}

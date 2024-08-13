@@ -21,7 +21,7 @@
           <n-list-item v-for="t in item.dataList" :key="t.id">
             <div class="flex">
               <n-image class="image" width="100" :src="t.al.picUrl" />
-              <div class="names flex-col gap-10 align-center justify-center">
+              <div class="names flex-col gap-10 items-center justify-center">
                 <span>{{ t.name }}</span>
                 <span class="ellipsis color-909090">{{ getArNames(t.ar) }}</span>
               </div>

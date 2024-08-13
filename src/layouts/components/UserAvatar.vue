@@ -4,7 +4,6 @@
       <n-avatar round :size="36" :src="userStore.avatar" />
       <div v-if="userStore.userInfo" class="ml-12 flex-col flex-shrink-0 items-center">
         <span class="text-14">{{ userStore.nickName ?? userStore.username }}</span>
-        <span class="text-12 opacity-50">[{{ userStore.currentRole?.name }}]</span>
       </div>
     </div>
   </n-dropdown>
@@ -58,6 +57,8 @@ function handleSelect(key) {
           authStore.logout()
           // 停止播放音乐 ap.pause()
           if (appStore.musicAp) appStore.musicAp.pause()
+          localStorage.clear()
+          sessionStorage.clear()
           window.$message.success('已退出登录')
         },
         onNegativeClick: () => {}

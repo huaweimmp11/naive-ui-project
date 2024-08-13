@@ -41,6 +41,8 @@
     "qrcode": "^1.5.4",
     "quill": "^2.0.2",
     "scss": "^0.2.4",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5",
     "uuid": "^10.0.0",
     "vue": "^3.4.36",
     "vue-draggable-plus": "^0.5.3",

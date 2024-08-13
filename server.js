@@ -6,8 +6,86 @@ import path from 'path'
 import { createConnection } from 'mysql'
 import bodyparser from 'body-parser'
 import MusicRouter from './src/http/music.js'
+import http from 'http'
+import { Server } from 'socket.io'
 
 const app = express()
+const server = http.createServer(app)
+
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST']
+  }
+})
+
+// 在 WebSocket 服务器中，clients 属性是一个集合（Set）
+// 包含了所有当前连接到服务器的WebSocket客户端，这个集合的作用是方便遍历和管理所有连接的客户端，可以使用clients属性向所有连接的客户端广播消息
+const clients = new Map()
+// 新增离线消息 Map
+const offlineMessages = new Map()
+io.on('connection', (socket) => {
+  socket.emit('connectionSuccess')
+  let userName = socket.handshake.query.userName
+  if (userName) {
+    clients.set(userName, socket)
+  }
+  socket.on('user_name', (data) => {
+    userName = data
+    clients.set(userName, socket)
+  })
+  socket.on('message', (message) => {
+    try {
+      const { to, id, time, from, content } = message
+      // 获取目标用户的socket
+      const targetClient = clients.get(to)
+      if (targetClient && targetClient.connected) {
+        targetClient.emit('message', JSON.stringify({ from: userName, content, to, id, time }))
+        const query = `INSERT INTO user_message (\`from\`, \`to\`, \`id\`, \`time\`, \`content\`) VALUES (?, ?, ?, ?, ?)`
+        connection.query(query, [from, to, id, time, content], (error, results) => {
+          if (error) {
+            console.error('即时通讯消息存储失败: ', error)
+          }
+        })
+      } else {
+        // 如果目标用户不在线，将消息存储到离线消息 Map 中
+        if (!offlineMessages.has(to)) {
+          offlineMessages.set(to, [])
+        }
+        offlineMessages.get(to).push(message)
+      }
+    } catch (error) {
+      console.error('Error processing message:', error)
+    }
+  })
+  socket.on('disconnect', () => {
+    console.log(`User ${userName} disconnected`)
+    if (userName) clients.delete(userName)
+  })
+})
+
+// 新增离线消息发送逻辑
+function sendOfflineMessages() {
+  offlineMessages.forEach((messages, to) => {
+    const targetClient = clients.get(to)
+    if (targetClient && targetClient.connected) {
+      messages.forEach((message) => {
+        const { id, time, from, content } = message
+        targetClient.emit('message', JSON.stringify({ from: from, content, to, id, time }))
+        const query = `INSERT INTO user_message (\`from\`, \`to\`, \`id\`, \`time\`, \`content\`) VALUES (?, ?, ?, ?, ?)`
+        connection.query(query, [from, to, id, time, content], (error, results) => {
+          if (error) {
+            console.error('即时通讯消息存储失败: ', error)
+          }
+        })
+      })
+      offlineMessages.delete(to)
+    }
+  })
+}
+
+// 定时发送离线消息
+setInterval(sendOfflineMessages, 5000) // 每 5 秒发送一次离线消息
 
 app.use(bodyparser.json({ limit: '1000mb' }))
 app.use(bodyparser.urlencoded({ limit: '1000mb', extended: true }))
@@ -252,6 +330,27 @@ app.post('/video-manage-list', (req, res) => {
   })
 })
 
-app.listen(port, () => {
-  console.log(`连接成功`)
+// 即时通讯列表
+app.post('/user-message-list', (req, res) => {
+  const { from, to } = req.body
+  const query =
+    from && to
+      ? `
+        (SELECT * FROM user_message WHERE \`from\` = '${from}' AND \`to\` = '${to}')
+        UNION
+        (SELECT * FROM user_message WHERE \`from\` = '${to}' AND \`to\` = '${from}')
+        ORDER BY time ASC
+      `
+      : `SELECT * FROM user_message ORDER BY time ASC`
+  queryFunc(query).then((rows) => {
+    if (!rows) {
+      res.send(send500('获取失败'))
+    } else {
+      res.send(send200(rows))
+    }
+  })
+})
+
+server.listen(port, () => {
+  console.log(`node server 连接成功`)
 })

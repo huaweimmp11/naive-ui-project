@@ -6,7 +6,7 @@
 -->
 <template>
   <UseModel ref="usemodel">
-    <div class="im-box-dialog flex h-400">
+    <div class="im-box-dialog flex h-600">
       <div class="dialog-left w-[30%] h-full">
         <ImUsersList @click="checkSendUser" />
       </div>
@@ -32,6 +32,7 @@ const usemodel = ref<any>(null)
 const sendUser = ref<{ name?: string } | null>(null)
 
 const show = () => {
+  sendUser.value = null
   usemodel.value.show({
     title: '即时通讯',
     showFooter: false,
@@ -43,10 +44,7 @@ const checkSendUser = (val: { name: string; password: string }) => {
   sendUser.value = val
 }
 
-onMounted(() => {
-  sendUser.value = null
-  console.log('onMounted ')
-})
+onMounted(() => {})
 
 defineExpose({
   show

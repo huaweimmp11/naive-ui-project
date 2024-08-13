@@ -11,7 +11,7 @@
     <MessageCard title="">
       <n-descriptions label-placement="left" bordered :column="3">
         <template #header>
-          <div class="flex gap-6 align-center" v-if="!state.showEdit">
+          <div class="flex gap-6 items-center" v-if="!state.showEdit">
             <span>{{ state.querySearchCity }}</span>
             <i class="i-fe:edit" @click="openCityEdit"></i>
           </div>
@@ -31,7 +31,7 @@
         </template>
         <n-descriptions-item v-for="item in realTimeDescriptionsItems" :key="item.label">
           <template #label>
-            <div class="flex gap-6 align-center">
+            <div class="flex gap-6 items-center">
               <i :class="`i-fe:${item.icon}`" />
               {{ item.label }}
             </div>
@@ -40,7 +40,7 @@
         </n-descriptions-item>
         <n-descriptions-item>
           <template #label>
-            <div class="flex gap-6 align-center">
+            <div class="flex gap-6 items-center">
               <i class="i-fe:link" />
               数据来源
             </div>
