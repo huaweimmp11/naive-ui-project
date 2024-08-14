@@ -1,7 +1,6 @@
 <!--
    @description Music
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年07月31日 15:41:16
 -->
 

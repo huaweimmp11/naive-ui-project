@@ -1,7 +1,6 @@
 /**
  *@description 音乐管理使用请求api
  *@author slh
- *@copyright NanJing Anshare Tech .Com
  *@createDate 2024年08月05日 14:54:10
  */
 
@@ -80,5 +79,14 @@ export const topListSearchById = (id: string) => {
       id,
       s: 8
     }
+  }) as unknown as MyAxiosResponse
+}
+
+/**
+ * 生成二维码key
+ */
+export const getLoginQrcodeKey = () => {
+  return service({
+    url: '/login-qr-key'
   }) as unknown as MyAxiosResponse
 }
