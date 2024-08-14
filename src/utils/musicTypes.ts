@@ -1,7 +1,6 @@
 /**
  *@description 音乐相关接口参数所用类型
  *@author slh
- *@copyright NanJing Anshare Tech .Com
  *@createDate 2024年08月05日 17:56:37
  */
 

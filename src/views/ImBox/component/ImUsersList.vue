@@ -1,7 +1,6 @@
 <!--
    @description 即时通讯 用户列表
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年08月12日 14:32:29
 -->
 <template>

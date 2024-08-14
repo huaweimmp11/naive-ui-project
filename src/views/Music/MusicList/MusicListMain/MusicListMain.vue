@@ -1,7 +1,6 @@
 <!--
    @description 音乐管理 管理首页
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年08月01日 09:42:22
 -->
 
@@ -35,7 +34,7 @@ import CommonPage from '@/components/CommonPage.vue'
 import ArrangeCard from '../../MusicComponents/ArrangeCard/ArrangeCard.vue'
 import UseModel from '@/components/UseModel/UseModel.vue'
 import MusicRanking from '../MusicRanking/MusicRanking.vue'
-import { topAlbumSearch, topPlayListSearch } from '@/api/music'
+import { getLoginQrcodeKey, topAlbumSearch, topPlayListSearch } from '@/api/music'
 import {
   AlbumArea,
   AlbumType,
@@ -73,6 +72,8 @@ const areaType = ref(AlbumArea.ALL)
 
 const topType = ref<string>('全部')
 
+const loginQrKey = ref<string>('')
+
 const getTopAlbum = async () => {
   loading.value = true
   const { data } = await topAlbumSearch({
@@ -98,12 +99,14 @@ const getTopPlayList = async () => {
   loading.value = false
 }
 
-const handleLoginMusic = () => {
+const handleLoginMusic = async () => {
   useModel.value?.show({
     title: '登录网易云音乐账号',
     showFooter: false,
     closable: true
   })
+  const { data } = await getLoginQrcodeKey()
+  loginQrKey.value = data
 }
 
 const handleTagClick = ({ title, tag }: { title: string; tag: string }) => {

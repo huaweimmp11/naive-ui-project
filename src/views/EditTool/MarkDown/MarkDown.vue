@@ -1,7 +1,6 @@
 <!--
    @description 编辑器 MarkDown
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年07月29日 15:00:26
 -->
 

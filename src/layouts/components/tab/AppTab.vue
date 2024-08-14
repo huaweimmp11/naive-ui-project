@@ -1,7 +1,6 @@
 <!--
    @description NormalHeader 路由 tabs
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年07月26日 10:15:23
 -->
 

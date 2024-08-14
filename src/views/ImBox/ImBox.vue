@@ -1,7 +1,6 @@
 <!--
    @description 即时通讯组件
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年08月12日 10:38:41
    @document https://github.com/kirillmurashov/vue-drag-resize
 -->

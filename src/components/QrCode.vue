@@ -1,7 +1,6 @@
 <!--
    @description 二维码展示
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年07月25日 16:23:09
 -->
 

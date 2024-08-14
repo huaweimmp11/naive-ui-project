@@ -1,7 +1,6 @@
 <!--
    @description layout 头部
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年07月25日 17:50:07
 -->
 

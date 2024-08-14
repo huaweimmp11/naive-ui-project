@@ -1,7 +1,6 @@
 /**
  *@description 全局通用组件调用方法
  *@author slh
- *@copyright NanJing Anshare Tech .Com
  *@createDate 2024年07月18日 10:05:47
  */
 

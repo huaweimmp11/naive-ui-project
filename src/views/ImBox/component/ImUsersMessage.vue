@@ -1,7 +1,6 @@
 <!--
    @description 即时通讯 用户发送消息
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年08月12日 15:24:31
 -->
 
@@ -34,7 +33,8 @@
       </div>
     </div>
     <template #footer v-if="props.sendUser">
-      <div class="footer mt-20 flex">
+      <div class="footer mt-20 flex items-center">
+        <i class="i-fe:phone-call mr-8"></i>
         <n-input
           class="w-[80%]"
           v-model:value="editvalue"
@@ -43,6 +43,7 @@
           autosize
           type="textarea"
           placeholder="发送内容"
+          @keydown.enter="sendMessage"
         />
         <n-button @click="sendMessage">发送</n-button>
       </div>

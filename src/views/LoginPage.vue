@@ -1,7 +1,6 @@
 <!--
    @description 登录页面
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年07月24日 14:49:12
 -->
 
@@ -10,7 +9,7 @@
     <div
       class="m-auto max-w-700 min-w-345 f-c-c rounded-8 bg-opacity-20 bg-cover p-12 card-shadow auto-bg"
     >
-      <div class="hidden w-380 px-20 py-35 md:block">
+      <div class="hidden w-380 px-20 py-35 md:block shark-wrap card">
         <img :src="loginBanner" class="w-full" alt="login_banner" />
       </div>
       <div class="w-320 flex-col px-20 py-32 pt-0">
@@ -159,6 +158,37 @@ async function handleLogin() {
 .trans {
   width: 100%;
   height: 60px;
+}
+
+.card {
+  border-radius: 8px;
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.shark-wrap {
+  overflow: hidden;
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -20%;
+    background: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0) 40%,
+      rgba(255, 255, 255, 0.7),
+      rgba(255, 255, 255, 0) 60%
+    );
+    animation: shark-wrap 4s infinite;
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes shark-wrap {
+  to {
+    transform: translateX(100%);
+  }
 }
 
 .brick {

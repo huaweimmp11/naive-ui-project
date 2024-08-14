@@ -1,7 +1,6 @@
 <!--
    @description 音乐管理首页 新碟上架列表
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年08月06日 14:20:24
 -->
 

@@ -1,7 +1,6 @@
 <!--
    @description 模态框
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年08月01日 10:07:36
    @document https://www.naiveui.com/zh-CN/os-theme/components/modal#basic.vue
 -->

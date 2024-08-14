@@ -1,7 +1,6 @@
 <!--
    @description 音乐管理首页排行榜
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年08月07日 16:20:15
 -->
 <template>

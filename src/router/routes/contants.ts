@@ -1,7 +1,6 @@
 /**
  *@description 路由常量
  *@author slh
- *@copyright NanJing Anshare Tech .Com
  *@createDate 2024年07月23日 09:06:00
  */
 
@@ -55,5 +54,11 @@ export enum RouteName {
   Baidu = 'Baidu',
 
   /** 实时天气 */
-  RealTimeWeather = 'RealTimeWeather'
+  RealTimeWeather = 'RealTimeWeather',
+
+  /** 自定义组件工具 */
+  Custom = 'Custom',
+
+  /** 自定义键盘组件 */
+  Keyboard = 'Keyboard'
 }

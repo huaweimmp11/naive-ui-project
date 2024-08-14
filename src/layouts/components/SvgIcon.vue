@@ -1,7 +1,6 @@
 <!--
    @description 用于 SideMenu 组件中图标展示
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年07月26日 18:47:05
 -->
 

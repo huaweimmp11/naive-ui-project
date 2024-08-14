@@ -1,7 +1,6 @@
 <!--
    @description 编辑器 富文本 文章内容编辑
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年07月29日 14:03:02
 -->
 

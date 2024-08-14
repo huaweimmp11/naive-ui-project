@@ -1,7 +1,6 @@
 <!--
    @description 路由 tabs 右键菜单
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年07月23日 09:19:24
 -->
 

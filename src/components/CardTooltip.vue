@@ -1,7 +1,6 @@
 <!--
    @description 文字超出省略号，鼠标移入提示完整文字
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年07月25日 14:00:07
 -->
 

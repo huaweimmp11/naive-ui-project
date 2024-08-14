@@ -1,7 +1,6 @@
 <!--
    @description 实时天气
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年08月09日 10:51:33
 -->
 

@@ -1,7 +1,6 @@
 <!--
    @description 侧边栏路由菜单
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年07月24日 13:58:04
 -->
 

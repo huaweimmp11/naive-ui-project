@@ -1,7 +1,6 @@
 /**
  *@description 系统接口方法调用
  *@author slh
- *@copyright NanJing Anshare Tech .Com
  *@createDate 2024年07月25日 15:00:05
  */
 

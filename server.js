@@ -59,7 +59,7 @@ io.on('connection', (socket) => {
     }
   })
   socket.on('disconnect', () => {
-    console.log(`User ${userName} disconnected`)
+    // console.log(`User ${userName} disconnected`)
     if (userName) clients.delete(userName)
   })
 })

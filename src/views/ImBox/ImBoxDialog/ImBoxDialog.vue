@@ -1,7 +1,6 @@
 <!--
    @description 即时通讯弹窗
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年08月12日 13:41:35
 -->
 <template>

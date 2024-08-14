@@ -1,7 +1,6 @@
 <!--
    @description 主页 天气 使用心知天气插件
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年08月08日 17:39:15
    @document https://www.seniverse.com/widgetv3
 -->

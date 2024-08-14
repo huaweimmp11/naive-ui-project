@@ -1,7 +1,6 @@
 <!--
    @description 路由页面可用头部
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年07月26日 19:05:30
 -->
 

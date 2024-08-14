@@ -1,7 +1,6 @@
 <!--
    @description 音乐首页 排列容器
-   @author slh
-   @copyright NanJing Anshare Tech .Com
+   @author slh   
    @createDate 2024年08月06日 10:07:18
 -->
 

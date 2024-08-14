@@ -113,7 +113,7 @@ export const asyncRoutes = [
         component: () => import('@/views/Map/Gaode/Gaode.vue'),
         meta: {
           title: '高德',
-          icon: 'file-text'
+          icon: 'gaode-map'
         }
       },
       {
@@ -122,7 +122,7 @@ export const asyncRoutes = [
         component: () => import('@/views/Map/Baidu/Baidu.vue'),
         meta: {
           title: '百度',
-          icon: 'life-buoy'
+          icon: 'baidu-map'
         }
       }
     ]
@@ -154,5 +154,32 @@ export const asyncRoutes = [
       icon: 'cloud'
     },
     component: () => import('@/views/RealTimeWeather/RealTimeWeather.vue')
+  },
+  {
+    name: RouteName.Custom,
+    path: '/custom',
+    meta: {
+      title: '自定义组件',
+      icon: 'life-buoy'
+    },
+    children: [
+      {
+        name: RouteName.Keyboard,
+        path: 'keyboard',
+        component: () => import('@/views/Custom/Keyboard/UseKeyboard.vue'),
+        meta: {
+          title: '车牌键盘',
+          icon: 'keyboard'
+        }
+      }
+    ]
+  },
+  {
+    name: 'Demo',
+    path: '/demo',
+    meta: {
+      title: 'Demo'
+    },
+    component: () => import('@/views/Demo.vue')
   }
 ]
