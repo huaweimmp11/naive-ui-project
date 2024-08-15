@@ -68,6 +68,15 @@ export const asyncRoutes = [
           title: '视频播放',
           icon: 'video'
         }
+      },
+      {
+        name: RouteName.FilePreview,
+        path: 'file-preview',
+        component: () => import('@/views/FilePreview/FilePreview.vue'),
+        meta: {
+          title: '文件预览',
+          icon: 'file-text'
+        }
       }
     ]
   },

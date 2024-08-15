@@ -20,6 +20,9 @@ export enum RouteName {
   /** 引用工具 - 视频播放 */
   VideoManage = 'VideoManage',
 
+  /** 引用工具 - 文件预览 */
+  FilePreview = 'FilePreview',
+
   /** 引用工具 - 图片上传 */
   ImageUpload = 'ImageUpload',
 
