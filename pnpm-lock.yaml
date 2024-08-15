@@ -71,6 +71,9 @@ importers:
       md-editor-v3:
         specifier: ^4.18.1
         version: 4.18.1(@codemirror/view@6.32.0)(@lezer/common@1.2.1)(vue@3.4.37(typescript@5.2.2))
+      meting:
+        specifier: ^2.0.1
+        version: 2.0.1
       mysql:
         specifier: ^2.18.1
         version: 2.18.1
@@ -4036,6 +4039,9 @@ packages:
   methods@1.1.2:
     resolution: {integrity: sha512-iclAHeNqNm68zFtnZ0e+1L2yUIdvzNoauKU4WBA3VvH/vPFieF7qfRlwUZU+DA9P9bPXIS90ulxoUoCH23sV2w==}
     engines: {node: '>= 0.6'}
+
+  meting@2.0.1:
+    resolution: {integrity: sha512-qcn85I7btbtfDLZvcZdMa+HrpCXm2E3sRB3BRBVYWJvZG49uQFhIGK6I53c/EEcyumMdU0ekRfTlD4/FG1/48A==}
 
   micromatch@3.1.10:
     resolution: {integrity: sha512-MWikgl9n9M3w+bpsY3He8L+w9eF9338xRl8IAO5viDizwSzziFEyUzo2xrrloB64ADbTf8uA8vRqqttDTOmccg==}
@@ -10824,6 +10830,8 @@ snapshots:
   merge2@1.4.1: {}
 
   methods@1.1.2: {}
+
+  meting@2.0.1: {}
 
   micromatch@3.1.10:
     dependencies:
