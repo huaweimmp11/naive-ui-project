@@ -56,23 +56,23 @@ export type vue3VideoPlayOptions = {
   /** 视频源 */
   src: string
   /** 静音 */
-  muted: false
+  muted: boolean
   /** 全屏 */
-  webFullScreen: false
-  /** 播放倍速 */
-  speedRate: ['0.75', '1.0', '1.25', '1.5', '2.0']
+  webFullScreen: boolean
+  /** 播放倍速 ['0.75', '1.0', '1.25', '1.5', '2.0'] */
+  speedRate: string[]
   /** 自动播放 */
-  autoPlay: false
+  autoPlay: boolean
   /** 循环播放 */
-  loop: false
+  loop: boolean
   /** 镜像画面 */
-  mirror: false
+  mirror: boolean
   /** 关灯模式 */
-  ligthOff: false
+  ligthOff: boolean
   /** 默认音量大小 */
   volume: number
   /** 是否显示控制 */
-  control: true
+  control: boolean
   /** 显示控件按钮 */
   controlBtns: vue3VideoPlayControlBtns[]
 }

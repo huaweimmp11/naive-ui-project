@@ -98,14 +98,6 @@ export function exportMarkDownById(data: { id: string; filename: string }) {
   })
 }
 
-/** 引用工具-视频播放  查询 */
-export function getVideoManageList() {
-  return service({
-    url: '/video-manage-list',
-    method: 'post'
-  }) as unknown as MyAxiosResponse
-}
-
 /** 引用工具-音乐管理  查询 */
 export function getMusicList() {
   return service({

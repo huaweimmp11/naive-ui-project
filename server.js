@@ -319,17 +319,6 @@ app.post('/markdown-save', async (req, res) => {
   })
 })
 
-// 引用工具-视频播放 获取视频列表
-app.post('/video-manage-list', (req, res) => {
-  queryFunc(`SELECT * FROM video_manage`).then((rows) => {
-    if (!rows) {
-      res.send(send500('获取失败'))
-    } else {
-      res.send(send200(rows))
-    }
-  })
-})
-
 // 即时通讯列表
 app.post('/user-message-list', (req, res) => {
   const { from, to } = req.body
