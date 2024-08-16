@@ -63,5 +63,8 @@ export enum RouteName {
   Custom = 'Custom',
 
   /** 自定义键盘组件 */
-  Keyboard = 'Keyboard'
+  Keyboard = 'Keyboard',
+
+  /** 流程图设计 */
+  FlowDesign = 'FlowDesign'
 }
