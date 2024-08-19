@@ -189,6 +189,15 @@ export const asyncRoutes = [
           title: '车牌键盘',
           icon: 'keyboard'
         }
+      },
+      {
+        name: RouteName.RollingReel,
+        path: 'rolling-reel',
+        component: () => import('@/views/Custom/RollingReel/RollingReel.vue'),
+        meta: {
+          title: '滚动卷轴',
+          icon: 'reel'
+        }
       }
     ]
   },

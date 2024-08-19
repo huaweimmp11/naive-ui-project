@@ -66,5 +66,8 @@ export enum RouteName {
   Keyboard = 'Keyboard',
 
   /** 流程图设计 */
-  FlowDesign = 'FlowDesign'
+  FlowDesign = 'FlowDesign',
+
+  /** css 动画 滚动卷轴 */
+  RollingReel = 'RollingReel'
 }
