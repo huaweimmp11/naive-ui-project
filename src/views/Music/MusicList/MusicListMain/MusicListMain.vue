@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <CommonPage showFooter>
+  <CommonPage>
     <template #action> <n-button @click="handleLoginMusic">登录音乐账号</n-button></template>
     <ArrangeCard
       v-for="item in arrageProps"

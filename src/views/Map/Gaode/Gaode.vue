@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <CommonPage showFooter>
+  <CommonPage>
     <div class="map-container">
       <div ref="container" :style="{ height: height + 'px', width: '100%' }"></div>
       <div class="setting">

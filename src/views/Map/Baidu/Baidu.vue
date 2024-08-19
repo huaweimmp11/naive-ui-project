@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <CommonPage showFooter>
+  <CommonPage>
     <div class="map-container">
       <div ref="container" :style="{ height: height + 'px', width: '100%' }"></div>
     </div>
@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
 import { useCreateScript } from '@/utils/func'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref } from 'vue'
 import CommonPage from '@/components/CommonPage.vue'
 import { MapStyle } from '@/utils/typeset'
 

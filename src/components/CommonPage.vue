@@ -60,7 +60,7 @@ defineProps({
   },
   showFooter: {
     type: Boolean,
-    default: false
+    default: true
   },
   showHeader: {
     type: Boolean,

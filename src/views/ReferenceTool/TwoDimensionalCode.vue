@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <CommonPage showFooter>
+  <CommonPage>
     <div class="flex">
       <n-input
         v-model:value="qrText"

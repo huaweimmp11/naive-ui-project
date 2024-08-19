@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <CommonPage showFooter>
+  <CommonPage>
     <!-- 实时天气 -->
     <MessageCard title="">
       <n-descriptions label-placement="left" bordered :column="3">

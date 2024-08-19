@@ -6,7 +6,7 @@
 -->
 
 <template>
-  <CommonPage showFooter>
+  <CommonPage>
     <n-button @click="exportImage">导出图片</n-button>
     <div id="container" class="w-full h-[92%]" :style="cssVars"></div>
   </CommonPage>

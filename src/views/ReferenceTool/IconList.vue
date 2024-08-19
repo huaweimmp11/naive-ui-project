@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <CommonPage showFooter>
+  <CommonPage>
     <VueDraggable animation="450" target=".sort-target" v-model="iconsList">
       <TransitionGroup
         class="sort-target grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] justify-items-center gap-16"

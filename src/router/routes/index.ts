@@ -85,7 +85,7 @@ export const asyncRoutes = [
     path: '/form-design',
     meta: {
       title: '流程图设计',
-      icon: 'cloud'
+      icon: 'flow'
     },
     component: () => import('@/views/FlowDesign/FlowDesign.vue')
   },

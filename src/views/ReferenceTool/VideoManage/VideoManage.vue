@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <CommonPage showFooter>
+  <CommonPage>
     <div class="flex justify-around items-start">
       <n-card class="w-[40%] h-full">
         <template #header>

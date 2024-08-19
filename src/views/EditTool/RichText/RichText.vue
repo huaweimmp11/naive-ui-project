@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <CommonPage showFooter>
+  <CommonPage>
     <MessageCard title="文章标题" size="small" :height="120" :contentSegmented="true">
       <n-input v-model:value="title" type="text" placeholder="请输入文章标题" />
     </MessageCard>
