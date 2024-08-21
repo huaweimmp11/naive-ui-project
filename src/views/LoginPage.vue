@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <div class="wh-full flex-col bg-cover">
+  <div class="wh-full flex-col bg-img-web bg-cover">
     <div
       class="m-auto max-w-700 min-w-345 f-c-c rounded-8 bg-opacity-20 bg-cover p-12 card-shadow auto-bg"
     >
@@ -166,6 +166,10 @@ async function handleLogin() {
     display: block;
     width: 100%;
   }
+}
+
+.bg-img-web {
+  background-image: url('../assets/images/login_bg.webp');
 }
 
 .shark-wrap {
