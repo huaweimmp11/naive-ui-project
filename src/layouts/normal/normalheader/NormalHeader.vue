@@ -11,9 +11,10 @@
     <span class="mx-6 opacity-20">|</span>
     <div class="flex flex-shrink-0 items-center px-12 text-18">
       <ToggleWaterMark class="mr-8" />
-      <Weather class="mr-8 ml-8" />
+      <Weather class="mr-18 ml-8" />
       <ToggleTheme />
       <FullScreen />
+      <LockScreenIcon />
       <i
         class="i-fe:github mr-16 cursor-pointer"
         @click="handleLinkClick('https://github.com/huaweimmp11/naive-ui-project')"
@@ -38,6 +39,7 @@ import FullScreen from '@/layouts/components/FullScreen.vue'
 import MenuCollapse from '@/layouts/components/MenuCollapse.vue'
 import UserAvatar from '@/layouts/components/UserAvatar.vue'
 import Weather from '@/layouts/components/Weather.vue'
+import LockScreenIcon from '@/layouts/components/LockScreen/LockScreenIcon.vue'
 
 defineOptions({
   name: 'NormalHeader'

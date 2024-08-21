@@ -6,12 +6,13 @@
 -->
 
 <template>
-  <div id="tp-weather-widget"></div>
+  <div id="tp-weather-widget" :style="cssVars"></div>
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import './Weather'
+import { useAppStore } from '@/store/modules/app'
 
 const loadScript = (): Promise<void> => {
   return new Promise((resolve, reject) => {
@@ -23,6 +24,12 @@ const loadScript = (): Promise<void> => {
     document.head.appendChild(script)
   })
 }
+
+const cssVars = computed(() => {
+  return {
+    '--text-color': useAppStore().isDark ? '#fff' : '#333'
+  }
+})
 
 onMounted(() => {
   loadScript().then(() => {
@@ -56,6 +63,9 @@ onMounted(() => {
   }
   .bcxaVF {
     font-size: 14px;
+  }
+  .dsrBSL {
+    color: var(--text-color);
   }
 }
 </style>

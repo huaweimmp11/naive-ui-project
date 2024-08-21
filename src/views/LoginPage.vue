@@ -145,9 +145,9 @@ async function handleLoginOnce2() {
 async function handleLogin() {
   const { username, password } = loginInfo.value
   if (!username || !password) return window.$message.warning('请输入用户名和密码')
-  const { code } = await getLoginData({ username, password })
+  const { code, message } = await getLoginData({ username, password })
   if (code !== 200) {
-    window.$message.error('登录失败')
+    window.$message.error(`${message}`)
     return false
   }
   isShow.value = true

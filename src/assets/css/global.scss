@@ -20,6 +20,6 @@
 /* 选择所有 class 类名以 'i-' 开头的 <i> 元素 */
 i[class^='i-'],
 i[class*=' i-'] {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
 }

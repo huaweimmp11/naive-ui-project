@@ -14,6 +14,7 @@
           style="width: 200px"
           placeholder="输入车牌号"
           @focus="show = true"
+          @blur="show = false"
         >
         </n-input>
       </template>

@@ -1,19 +1,22 @@
 <template>
   <div class="wh-full flex">
-    <aside
-      class="flex-col flex-shrink-0 transition-width-300"
-      :class="appStore.collapsed ? 'w-64' : 'w-220'"
-      border-r="1px solid light_border dark:dark_border"
-    >
-      <NormalSidbar />
-    </aside>
-    <article class="w-0 flex-col flex-1">
-      <NormalHeader class="h-60 flex-shrink-0" />
-      <slot />
-    </article>
-    <Music />
-    <ImBox @mousedown="startClick" @mouseup="endClick" @click.prevent="openImBoX" />
-    <ImBoxDialog ref="imBoxDialog" />
+    <LockScreenPage v-if="showLock" />
+    <div class="wh-full flex" v-else>
+      <aside
+        class="flex-col flex-shrink-0 transition-width-300"
+        :class="appStore.collapsed ? 'w-64' : 'w-220'"
+        border-r="1px solid light_border dark:dark_border"
+      >
+        <NormalSidbar />
+      </aside>
+      <article class="w-0 flex-col flex-1">
+        <NormalHeader class="h-60 flex-shrink-0" />
+        <slot />
+      </article>
+      <Music />
+      <ImBox @mousedown="startClick" @mouseup="endClick" @click.prevent="openImBoX" />
+      <ImBoxDialog ref="imBoxDialog" />
+    </div>
   </div>
 </template>
 
@@ -24,9 +27,11 @@ import { useAppStore } from '@/store/modules/app'
 import Music from '@/views/Music/Music.vue'
 import ImBox from '@/views/ImBox/ImBox.vue'
 import ImBoxDialog from '@/views/ImBox/ImBoxDialog/ImBoxDialog.vue'
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { io } from 'socket.io-client'
 import { useUserStore } from '@/store/modules/user'
+import { useScreenLockStore } from '@/store/modules/screenLock'
+import LockScreenPage from '../components/LockScreen/LockScreenPage.vue'
 
 defineOptions({
   name: 'NorMal'
@@ -39,6 +44,20 @@ const imBoxDialog = ref<any>(null)
 const isLongPress = ref(false)
 
 const userStore = useUserStore()
+
+const useScreenLock = useScreenLockStore()
+
+const isLock = computed(() => useScreenLock.isLocked as unknown as boolean)
+
+const showLock = ref(false)
+
+watch(
+  () => isLock.value,
+  (val: boolean) => {
+    showLock.value = val
+  },
+  { immediate: true }
+)
 
 const startClick = () => {
   isLongPress.value = false

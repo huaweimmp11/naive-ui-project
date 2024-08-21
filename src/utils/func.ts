@@ -266,6 +266,7 @@ export function downloadCsv(options: {
   URL.revokeObjectURL(url)
 }
 
+/** 创建 script 标签 导入 js 文件 */
 export function useCreateScript(src: string) {
   return new Promise((resolve, reject) => {
     const script = document.createElement('script')

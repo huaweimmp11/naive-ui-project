@@ -2,7 +2,6 @@
    @description 数据填充表格
    @author s120
    @createDate 2024年07月30日 09:50:19
-   @document https://ashuicoder.github.io/naive-ui-components/naive-ui-table.html#naive-ui-table%E6%96%87%E6%A1%A3
  -->
 
 <template>
