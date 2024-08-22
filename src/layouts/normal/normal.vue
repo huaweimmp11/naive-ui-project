@@ -49,12 +49,16 @@ const useScreenLock = useScreenLockStore()
 
 const isLock = computed(() => useScreenLock.isLocked as unknown as boolean)
 
-const showLock = ref(false)
+const showLock = ref<boolean | string>(false)
 
 watch(
   () => isLock.value,
   (val: boolean) => {
-    showLock.value = val
+    if (typeof val === 'boolean') {
+      showLock.value = val
+    } else if (typeof val === 'string') {
+      showLock.value = val === 'true' ? true : false
+    }
   },
   { immediate: true }
 )
