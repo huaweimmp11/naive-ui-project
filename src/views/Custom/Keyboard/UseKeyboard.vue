@@ -18,7 +18,11 @@
         >
         </n-input>
       </template>
-      <Keyboard :modelValue="plateNumber" @updateModelValue="updateModelValue"></Keyboard>
+      <Keyboard
+        @click="keyboardOnClick"
+        :modelValue="plateNumber"
+        @updateModelValue="updateModelValue"
+      ></Keyboard>
     </n-popover>
   </CommonPage>
 </template>
@@ -36,17 +40,26 @@ let plateNumber = ref<string>('')
 
 const show = ref(false)
 
+const isFinished = ref(false)
+
 const popover = ref<any>(null)
 
 const updateModelValue = (val: any) => {
   plateNumber.value = val
-  show.value = false
+  isFinished.value = true
+}
+
+const keyboardOnClick = () => {
+  show.value = isFinished.value ? false : true
 }
 
 watch(
   () => show.value,
   (val) => {
-    if (val) plateNumber.value = ''
+    if (val) {
+      plateNumber.value = ''
+      isFinished.value = false
+    }
   }
 )
 </script>

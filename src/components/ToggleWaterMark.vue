@@ -8,19 +8,8 @@
 <template>
   <div class="water-mark-wrapper">
     <n-switch v-model:value="active" />
-    <n-watermark
-      v-if="active"
-      :content="content"
-      cross
-      fullscreen
-      :font-size="12"
-      :line-height="16"
-      :width="450"
-      :height="450"
-      :x-offset="12"
-      :y-offset="60"
-      :rotate="-15"
-    />
+    <n-watermark v-if="active" :content="content" cross fullscreen :font-size="12" :line-height="16" :width="450"
+      :height="450" :x-offset="12" :y-offset="60" :rotate="-15" />
   </div>
 </template>
 
@@ -33,7 +22,7 @@ defineOptions({
 
 const active = ref<boolean>(false)
 
-const content = ref<string>(import.meta.env.VITE_TITLE)
+const content = ref<string>(import.meta.env.VITE_WATERMARK_TEXT)
 </script>
 
 <style lang="scss" scoped></style>

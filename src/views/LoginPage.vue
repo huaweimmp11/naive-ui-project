@@ -87,8 +87,6 @@ defineOptions({
   name: 'LoginPage'
 })
 
-const title = ref(import.meta.env.VITE_TITLE)
-
 /** 路由信息 */
 const route = useRoute()
 
@@ -162,6 +160,7 @@ async function handleLogin() {
 
 .card {
   border-radius: 8px;
+
   img {
     display: block;
     width: 100%;
@@ -174,6 +173,7 @@ async function handleLogin() {
 
 .shark-wrap {
   overflow: hidden;
+
   &::after {
     content: '';
     position: absolute;
@@ -456,9 +456,11 @@ async function handleLogin() {
     30px 32px 0px #000,
     32px 32px 0px #000;
 }
+
 .brick.one {
   transform: translateX(-60px);
 }
+
 .mush {
   height: 2px;
   width: 2px;
@@ -643,6 +645,7 @@ async function handleLogin() {
   z-index: -1;
   opacity: 0;
 }
+
 .box {
   position: absolute;
   background-color: rgba(46, 37, 37, 0);
@@ -650,21 +653,26 @@ async function handleLogin() {
   width: 34px;
   height: 34px;
 }
+
 .box:hover + .mush {
   animation: mush 0.5s linear forwards;
   opacity: 1;
 }
+
 @keyframes mush {
   0% {
     transform: scale(0.8) translate(-0px, -0px);
   }
+
   50% {
     transform: scale(1.1) translate(-0px, -80px);
   }
+
   100% {
     transform: scale(1.1) translate(-0px, -35px);
   }
 }
+
 .tooltip-mario-container {
   height: 2px;
   width: 2px;

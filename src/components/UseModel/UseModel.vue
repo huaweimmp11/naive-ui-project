@@ -13,7 +13,10 @@
     :title="defaultViews.title"
     :size="defaultViews.size"
     :style="{
-      width: defaultViews.width
+      width: defaultViews.width,
+      height: defaultViews.height,
+      'align-self': 'flex-start',
+      margin: defaultViews.top ? `${defaultViews.top}px auto` : 'auto'
     }"
     transform-origin="center"
     :bordered="defaultViews.bordered"
@@ -50,8 +53,11 @@ type ShowOptions = {
     footer: string
   }
   width?: string
+  height?: string
   closable?: boolean
   showFooter?: boolean
+  fullscreen?: boolean
+  top?: number
 }
 
 defineOptions({
@@ -82,13 +88,20 @@ const defaultViews = ref<ShowOptions>({
     footer: 'soft'
   },
   width: '60%',
+  height: 'auto',
   closable: false,
-  showFooter: true
+  showFooter: true,
+  fullscreen: false,
+  top: 0
 })
 
 const show = (options: ShowOptions) => {
   showModal.value = true
   defaultViews.value = { ...defaultViews.value, ...options }
+  if (defaultViews.value.fullscreen) {
+    defaultViews.value.width = '100vw'
+    defaultViews.value.height = '100vh'
+  }
 }
 
 const hide = () => {
@@ -109,3 +122,5 @@ defineExpose({
   hide
 })
 </script>
+
+<style lang="scss" scoped></style>

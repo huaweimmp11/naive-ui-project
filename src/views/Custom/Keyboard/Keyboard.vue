@@ -12,32 +12,18 @@
     </div>
     <div class="key-box-container">
       <div class="key-box-row" v-for="(item, index) in list" :key="index">
-        <div
-          class="key-box-row-wrapper"
-          v-for="(val, index) in item"
-          :key="index"
-          :class="{
-            'key-box-row-del-wrapper': val === 'del',
-            'key-box-row-type-wrapper': val === 'type'
-          }"
-        >
+        <div class="key-box-row-wrapper" v-for="(val, index) in item" :key="index" :class="{
+          'key-box-row-del-wrapper': val === 'del',
+          'key-box-row-type-wrapper': val === 'type'
+        }">
           <n-button v-if="val === 'type'" class="key-box-row-btn-key" @click="handleChangeType">
             <span v-if="type === 'cn'">中/<span class="key-box-row-smaller">英</span></span>
             <span v-else><span class="key-box-row-smaller">中</span>/英</span>
           </n-button>
-          <n-button
-            v-else-if="val === 'delete'"
-            class="key-box-row-btn-key"
-            type="text"
-            @click="handleDel"
-            ><i class="i-fe:delete"></i
-          ></n-button>
-          <n-button
-            v-else
-            class="key-box-row-btn-key"
-            :class="{ 'key-box-row-btn-empty': !val }"
-            @click="handleClickKey(val)"
-          >
+          <n-button v-else-if="val === 'delete'" class="key-box-row-btn-key" type="text" @click="handleDel"><i
+              class="i-fe:delete"></i></n-button>
+          <n-button v-else class="key-box-row-btn-key" :class="{ 'key-box-row-btn-empty': !val }"
+            @click="handleClickKey(val)">
             {{ val }}
           </n-button>
         </div>
@@ -61,7 +47,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['updateModelValue'])
+const emit = defineEmits(['updateModelValue', 'inputing'])
 
 let activeIndex = ref<number>(0)
 
@@ -87,6 +73,7 @@ const list = computed(() => (type.value == 'en' ? en : cn))
 
 const handleChangeType = () => {
   type.value = type.value == 'cn' ? 'en' : 'cn'
+  emit('inputing')
 }
 
 watch(
@@ -121,6 +108,7 @@ const handleDel = () => {
     activeIndex.value--
   }
   keyValue.value = currentValue.join('')
+  emit('inputing')
 }
 
 const handleClickKey = (val: string) => {
@@ -130,26 +118,32 @@ const handleClickKey = (val: string) => {
   if (activeIndex.value < 7) {
     activeIndex.value++
   }
+  emit('inputing')
 }
 </script>
 
 <style scoped lang="scss">
 .key-box {
   width: 100%;
+
   .key-box-top {
     display: flex;
     align-items: center;
+
     .key-box-top {
       border-bottom: 1px solid #ccc;
     }
   }
+
   .key-box-container {
     padding: 3px;
     padding-bottom: 22px;
+
     .key-box-row {
       display: flex;
       justify-content: center;
     }
+
     .key-box-row-wrapper {
       flex: 0 1 calc((100% - 6px * 10) / 10);
       padding: 3px;
@@ -160,25 +154,30 @@ const handleClickKey = (val: string) => {
       align-items: center;
       text-align: center;
       cursor: pointer;
+
       &.key-box-row-del-wrapper,
       &.key-box-row-type-wrapper {
         flex: 1;
       }
+
       &.key-box-row-type-wrapper {
         .key-box-row-smaller {
           color: #999;
           font-size: 12px;
         }
       }
+
       .key-box-row-btn-key {
         padding: 0;
         width: 100%;
         border-radius: 4px;
       }
+
       .key-box-row-btn-empty {
         background: transparent;
         border: none;
       }
+
       .key-box-row-delete-icon {
         width: 18px;
         vertical-align: middle;

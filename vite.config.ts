@@ -17,7 +17,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
   // 这样就可以拿到定义好的环境变量了，也可以使用 import.meta.env.xxx 这种方式进行访问
   const { VITE_PUBLIC_PATH, VITE_PORT, VITE_PROXY } = viteEnv
   return {
-    plugins: [vue(), vueJsx(), Unocss(), pluginIcons(), pluginPagePathes()],
+    plugins: [vueJsx(), vue(), Unocss(), pluginIcons(), pluginPagePathes()],
     build: {
       rollupOptions: {
         output: {

@@ -12,6 +12,7 @@
     <div class="flex flex-shrink-0 items-center px-12 text-18">
       <ToggleWaterMark class="mr-8" />
       <Weather class="mr-18 ml-8" />
+      <SearchMenuIcon />
       <ToggleTheme />
       <FullScreen />
       <LockScreenIcon />
@@ -40,6 +41,7 @@ import MenuCollapse from '@/layouts/components/MenuCollapse.vue'
 import UserAvatar from '@/layouts/components/UserAvatar.vue'
 import Weather from '@/layouts/components/Weather.vue'
 import LockScreenIcon from '@/layouts/components/LockScreen/LockScreenIcon.vue'
+import SearchMenuIcon from '@/layouts/components/SearchMenu/SearchMenuIcon.vue'
 
 defineOptions({
   name: 'NormalHeader'

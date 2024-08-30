@@ -6,6 +6,9 @@
     "composite": true,
     "noEmit": true,
     "allowJs": true,
+    "jsx": "preserve",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
